@@ -1,0 +1,43 @@
+/* Style the links inside the navigation bar */
+.categories a {
+    float: left;
+    background-color: #ddd;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+  
+/* Change the color of links on hover */
+.categories div:hover {
+    background-color: #eee;
+    color: black;
+}
+  
+/* Add a color to the active/current link */
+.categories div.active {
+    background-color: #3f6fa7;
+    color: white;
+}
+
+
+input {
+    margin: .4rem 0;
+}
+
+.bwc .mat-tab-label.mat-tab-label-active, .bwc .mat-tab-label.mat-tab-label-active bwc-icon .mat-icon {
+    color: #14438b;
+}
+
+.bwc .mat-tab-label {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: ExcellenceInMotion,Helvetica Neue,sans-serif;
+    text-transform: none;
+    font-weight: 700;
+    min-width: auto;
+    padding: 0 16px;
+    opacity: unset;
+    color: #051039;
+}
