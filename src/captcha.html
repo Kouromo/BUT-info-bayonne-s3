@@ -1,9 +1,10 @@
-<html>
+<html lang="fr">
     <body>
         
         <img src="creationCaptcha.php"></img>
+        <input type="button" value="Refresh Captcha" onClick="location.href=location.href">
         <form action="verification.php" method="post">
-            <label for="captcha">Saisissez les caractères de l'image :</label>
+            <label for="captcha">Saisissez les caracteres de l'image :</label>
             <input type="text" name="captcha" id="captcha">
             <input type="submit" value="Envoyer">
         </form>
