@@ -1,5 +1,4 @@
 <?php
-    include ('AjoutFiltreImage.php');
     function CreationCaptcha($difficulty)
     {
         // Initialisation de 2 variables pour l'angle d'inclinaison
@@ -20,7 +19,19 @@
             imagettftext($_SESSION['image_t'], $_SESSION['width'], rand($min_angle, $max_angle), $posX, $posY, $black, 'font.ttf', $_SESSION['captcha'][$i]);
 
             // Ajouter des filtres supplémentaires en fonction du niveau de difficulté
-            AjoutFiltreImage($difficulty);
+            switch ($difficulty)
+            {
+              case 'easy':
+                imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
+                break;
+              case 'medium':
+                imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
+                break;
+              case 'hard':
+                imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
+                imagefilter($_SESSION['image_t'], IMG_FILTER_COLORIZE, rand(-255, 255), rand(-255, 255), rand(-255, 255));
+                break;
+            }
 
             // Ajouter des pixels sur l'images
             for ($j=0; $j < $_SESSION['height']; $j++)
