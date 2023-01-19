@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file Captcha.php
+ * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+ * @brief Fichier contenant la classe Captcha
+ * @details Structure de la classe Captcha permettant la création d'un captcha
+ * @date 2023-01-16
  * 
  */
 
@@ -9,10 +14,32 @@ include ('creationCaptcha.php');
 include ('ConnBD.php');
 class Captcha{
 
-    // Attributs
+    // ATTRIBUTS
+
+    /**
+     * Niveau de difficulté du Captcha
+     * @var enum
+     */
     private $difficulte;
 
-    // Constructeurs
+    /*
+    class Difficulte // Type énuméré en PHP de la difficulté
+    {
+        const EASY = "easy";
+        const MEDIUM = "medium";
+        const HARD = "hard";
+    }
+
+    $difficulty = Difficulte::HARD;
+    */
+
+
+    // CONSTRUCTEURS
+
+    /**
+     * Constructeur de la classe Captcha demandant en paramètre le niveau de difficulté
+     * @param string $diff  Difficulté du captcha, mis par défaut sur hard
+     */
     public function __construct($diff = 'hard')
     {
         session_start();
@@ -53,21 +80,35 @@ class Captcha{
     }
 
     // Encapsultation : Get & set
+    /**
+     * Fonction qui retourne la difficulté du Captcha, méthode get
+     * @return string
+     */
     public function getDifficulty() {
         return $this->difficulty;
     }
 
+    /** Procédure qui définis la difficulté du Captcha, méthode set
+     * @param $diff difficulté du Captcha à définir
+     * @return void
+     */
     private function setDifficulty($diff) {
         $this->difficulty = $diff;
     }
 
-    // Méthodes usuelles
+    // MÉTHODES USUELLES
 
-    // Méthodes spécifiques
-    private function InterpreterDifficulte($difficulty)
+    // MÉTHODES SPÉCIFIQUES
+
+
+    /**
+     * Procédure qui modifie la longueur du texte généré par le Captcha et le niveau de distortion en fonction de la difficulté
+     * @param $diff difficulté du Captcha à définir
+    */
+    private function InterpreterDifficulte($diff)
     {
         // Définir la longueur et la quantité de distorsion en fonction du niveau de difficulté
-        switch ($difficulty) {
+        switch ($diff) {
             case 'medium':
                 $_SESSION['text_length'] = 8;
                 $_SESSION['distortion_level'] = 10;
@@ -82,6 +123,10 @@ class Captcha{
         }
     }
 
+    /**
+     * Procédure qui définis la longueur et la largeur
+     * @return void
+     */
     private function CreerImageDeRetour()
     {
         // Initialisation de 2 variables pour les pixels de l'image

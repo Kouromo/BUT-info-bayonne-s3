@@ -1,4 +1,18 @@
 <?php
+    
+    /**
+    * @file ConnBD.php
+    * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+    * @brief Prodédure qui permet de se connecter à la base de données
+    * @date 2023-01-16
+    * 
+    */
+
+
+    /**
+    * Procédure qui permet la connexion à la base de donnée sur lakartxela
+    * @return void
+    */
     function ConnBD()
     {
         // Définition d'une variable de test
