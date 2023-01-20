@@ -18,20 +18,9 @@ class Captcha{
 
     /**
      * Niveau de difficulté du Captcha
-     * @var enum
+     * @var string peut prendre la valeur easy, medium ou hard
      */
     private $difficulte;
-
-    /*
-    class Difficulte // Type énuméré en PHP de la difficulté
-    {
-        const EASY = "easy";
-        const MEDIUM = "medium";
-        const HARD = "hard";
-    }
-
-    $difficulty = Difficulte::HARD;
-    */
 
 
     // CONSTRUCTEURS
@@ -72,7 +61,7 @@ class Captcha{
         // Créer le captcha
         CreationCaptcha($diff);
 
-        // Afficher l
+        // Afficher l'image
         header("Content-type: image/png");
         imagepng($_SESSION['image']);
 
@@ -104,6 +93,7 @@ class Captcha{
     /**
      * Procédure qui modifie la longueur du texte généré par le Captcha et le niveau de distortion en fonction de la difficulté
      * @param $diff difficulté du Captcha à définir
+     * @return void
     */
     private function InterpreterDifficulte($diff)
     {
