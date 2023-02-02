@@ -1,5 +1,17 @@
 <?php
-    function CreationCaptcha($difficulty)
+    /**
+    * @file creationImage.php
+    * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+    * @brief Prodédure qui crée l'image du Captcha pour chaque caractère et les fusionne à l'image du Captcha qui rassemble toutes les images
+    * @date 2023-02-02
+    * 
+    */
+    
+    /** Procédure qui crée l'image du Captcha pour chaque caractère et les fusionne à l'image du Captcha qui rassemble toutes les images
+    * @param $diff difficulté du Captcha à définir
+    * @return void
+    */
+    function creationImage($difficulty)
     {
         // Initialisation de 2 variables pour l'angle d'inclinaison
         $min_angle = -10;
@@ -9,7 +21,7 @@
         $posY = 30;
 
         // Boucle jusqu'à la fin de la chaine text
-        for ($i=0; $i < $_SESSION['text_length']; $i++)
+        for ($i=0; $i < $_SESSION['text_length']-1; $i++)
         { 
             $_SESSION['image_t'] = imagecreate($_SESSION['width'], $_SESSION['height']);
             $white = imagecolorallocate($_SESSION['image_t'], 255, 255, 255);

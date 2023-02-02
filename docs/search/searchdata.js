@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "_cg",
+  0: "_cgisv",
   1: "c",
-  2: "c",
-  3: "_cg"
+  2: "cgv",
+  3: "_cgis"
 };
 
 var indexSectionNames =
