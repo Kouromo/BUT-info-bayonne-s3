@@ -17,18 +17,18 @@ class Captcha{
     // ATTRIBUTS
 
     /**
-     * Niveau de difficulté du Captcha
-     * @var string peut prendre la valeur easy, medium ou hard
-     */
+    * Niveau de difficulté du Captcha
+    * @var string peut prendre la valeur easy, medium ou hard
+    */
     private $difficulte;
 
 
     // CONSTRUCTEURS
 
     /**
-     * Constructeur de la classe Captcha demandant en paramètre le niveau de difficulté
-     * @param string $diff  Difficulté du captcha, mis par défaut sur hard
-     */
+    * Constructeur de la classe Captcha demandant en paramètre le niveau de difficulté
+    * @param string $diff  Difficulté du captcha, mis par défaut sur hard
+    */
     public function __construct($diff = 'hard')
     {
         session_start();
@@ -51,7 +51,7 @@ class Captcha{
         $this->InterpreterDifficulte($diff);
 
         // On créer une image qui sera retournée avec une couleur de texte et une couleur de background
-        $this->CreerImageDeRetour();
+        $this->creerImageDeRetour();
 
 
         // Générer un texte aléatoire à utiliser comme captcha en utilisant la fonction str_shuffle()
@@ -59,7 +59,7 @@ class Captcha{
         $_SESSION['captcha'] = substr(str_shuffle('0123456789'), 0, $_SESSION['text_length']);
 
         // Créer le captcha
-        CreationCaptcha($diff);
+        creationImage($diff);
 
         // Afficher l'image
         header("Content-type: image/png");
@@ -70,17 +70,17 @@ class Captcha{
 
     // Encapsultation : Get & set
     /**
-     * Fonction qui retourne la difficulté du Captcha, méthode get
-     * @return string
-     */
+    * Fonction qui retourne la difficulté du Captcha, méthode get
+    * @return string
+    */
     public function getDifficulty() {
         return $this->difficulty;
     }
 
     /** Procédure qui définis la difficulté du Captcha, méthode set
-     * @param $diff difficulté du Captcha à définir
-     * @return void
-     */
+    * @param $diff difficulté du Captcha à définir
+    * @return void
+    */
     private function setDifficulty($diff) {
         $this->difficulty = $diff;
     }
@@ -91,9 +91,9 @@ class Captcha{
 
 
     /**
-     * Procédure qui modifie la longueur du texte généré par le Captcha et le niveau de distortion en fonction de la difficulté
-     * @param $diff difficulté du Captcha à définir
-     * @return void
+    * Procédure qui modifie la longueur du texte généré par le Captcha et le niveau de distortion en fonction de la difficulté
+    * @param $diff difficulté du Captcha à définir
+    * @return void
     */
     private function InterpreterDifficulte($diff)
     {
@@ -114,16 +114,16 @@ class Captcha{
     }
 
     /**
-     * Procédure qui définis la longueur et la largeur
-     * @return void
-     */
-    private function CreerImageDeRetour()
+    * Procédure qui définis la longueur et la largeur
+    * @return void
+    */
+    private function creerImageDeRetour()
     {
         // Initialisation de 2 variables pour les pixels de l'image
         $_SESSION['width'] = 20;
         $_SESSION['height'] = 50;
 
-        // Créer une image vide avec une largeur de 200 pixels et une hauteur de 50 pixels
+        // Créer une image vide avec une largeur de 20 pixels et une hauteur de 50 pixels
         $_SESSION['image'] = imagecreate($_SESSION['width']*$_SESSION['text_length'], $_SESSION['height']);
 
         // Allouer des couleurs pour l'image en utilisant les fonctions imagecolorallocate()

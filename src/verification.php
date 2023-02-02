@@ -1,4 +1,11 @@
 <?php
+    /**
+    * @file verification.php
+    * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+    * @brief Vérifie que le champs saisi correspond bien au champs du Captcha
+    * @date 2023-02-02
+    * 
+    */
     session_start();
     // Vérifier la réponse soumise par l'utilisateur au captcha
     if (isset($_POST['captcha']) && $_POST['captcha'] == $_SESSION['captcha'])
