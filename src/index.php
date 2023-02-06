@@ -75,36 +75,42 @@ foreach ($billets as $billet) {
 echo '<h2>Sports</h2>';
 echo '<div style="display: flex;">';
 foreach ($sports as $sport) {
+  if (strtotime($sport['dateExp']) >= strtotime($thedate)) {
   echo '<div style="width: 175px; word-wrap: break-word;">';
   echo '<a href="achat.php?id=' . $sport['id'] . '">';
   echo '<img src="images/sport.jpg"> <br>';
   echo '<span style="font-size: smaller;">' . $sport['libelle'] . '</span><br>';
   echo '</a>';
   echo '</div>';
+  }
 }
 echo '</div>';
 
 echo '<h2>Concerts</h2>';
 echo '<div style="display: flex;">';
 foreach ($concerts as $concert) {
+  if (strtotime($concert['dateExp']) >= strtotime($thedate)) {
   echo '<div style="width: 175px; word-wrap: break-word;">';
   echo '<a href="achat.php?id=' . $concert['id'] . '">';
   echo '<img src="images/concert.jpg"> <br>';
   echo '<span style="font-size: smaller;">' . $concert['libelle'] . '</span><br>';
   echo '</a>';
   echo '</div>';
+  }
 }
 echo '</div>';
 
 echo '<h2>Festivals</h2>';
 echo '<div style="display: flex;">';
 foreach ($festivals as $festival) {
+  if (strtotime($festival['dateExp']) >= strtotime($thedate)) {
   echo '<div style="width: 175px; word-wrap: break-word;">';
   echo '<a href="achat.php?id=' . $festival['id'] . '">';
   echo '<img src="images/festival.jpg"> <br>';
   echo '<span style="font-size: smaller;">' . $festival['libelle'] . '</span><br>';
   echo '</a>';
   echo '</div>';
+  }
 }
 echo '</div>';
 
