@@ -3,6 +3,8 @@
     $conn = ConnBD();
     session_start();
 
+    $id = $_GET['id'];
+
     // Vérifie si la variable de session "panier" existe
     if (!isset($_SESSION['panier'])) {
         // Si elle n'existe pas, on la crée et on lui affecte une valeur vide
@@ -42,27 +44,101 @@
         <main>
             <!-- Contenu de la page -->
             <?php
-                $id = 'J23C4';
+                echo "<section>";
+                // id de test pour vérifier si cela fonctionne
+                
+                //$id = $_SESSION['id'];
+                //$id = 'J23C4';
+                
 
+                // Requete pour sélectionner toute les informations sur un billet en particulier en fonction de son identifiant
                 $query = "SELECT * FROM Billet WHERE id = '$id';";
                 $result = mysqli_query($conn, $query);
 
+                // On mets les résultats proprement dans results
                 $results = mysqli_fetch_array($result, MYSQLI_BOTH);
 
-                $_SESSION['image'] = 'Images/' . trim($results[3]) . '.jpg';
+                // On initialise une variable image qui sera le chemin d'accès à l'image correspondant à l'id
+                $image = 'Images/' . trim($results[3]) . '.jpg';
 
-                if(isset($_SESSION['image'])){
-                    echo '<img class="image" src="'.$_SESSION['image'].'" alt="Texte alternatif"></a>';
+                // Vérification si une variable nommée $image existe, et si c'est le cas, affiche une image
+                if(isset($image)){
+                    echo "<div class='image-container'>";
+                    echo '<img class="image" src="'.$image.'" alt="Texte alternatif"></a>';
+                    echo '</div>';
                 }
-                echo '<h2>' . trim($results[1]) . '</h2>';
+                // On affiche le titre du billet
+                echo "<div class='info-container'>";
+                echo "<h2 class='info'>" . trim($results[1]) . '</h2>';
                 
+                // Requete pour sélectionner le pseudo de l'utilisateur qui a mis en vente le billet en se servant de son identifiant
                 $queryUser = "SELECT pseudo FROM Utilisateur WHERE idUti = '$results[9]';";
                 $resultUser = mysqli_query($conn, $queryUser);
 
                 $resultsUser = mysqli_fetch_array($resultUser, MYSQLI_BOTH);
+                
+                // Affichage du nom d'utilisateur qui vend le billet
+                echo "<p class='info'>" . trim($resultsUser[0]) . '</p>';
 
-                echo '<p>' . trim($resultsUser[0]) . '</p>';
-                echo '<p>' . trim($results[2]) . '</p>';
+                // $id2 = 'a004';
+
+                // Requete pour sélectionner la moyenne des avis sur un utilisateur en se servant de son identifiant
+                $queryAvis = "SELECT AVG(noteAvis) FROM Avis WHERE idReceveur = '$results[9]';";
+                // $queryAvis = "SELECT AVG(noteAvis) FROM Avis WHERE idReceveur = '$id2';";
+                $resultAvis = mysqli_query($conn, $queryAvis);
+
+                $resultsAvis = mysqli_fetch_array($resultAvis, MYSQLI_BOTH);
+                
+                if (is_numeric(trim($resultsAvis[0]))) {
+                    echo "<div class='icon-container'>";
+                    for ($i=1; $i <= trim($resultsAvis[0]); $i++) { 
+                        echo "<i class='fa-solid fa-star'></i>";
+                    }
+
+                    if (fmod(trim($resultsAvis[0]), 0.5) == 0 && intval(trim($resultsAvis[0])) != trim($resultsAvis[0])) {
+                        echo "<i class='fa-solid fa-star-half-stroke'></i>";
+                    }
+
+                    for ($i=trim($resultsAvis[0]); $i < 4.5; $i++) {
+                        if (trim($resultsAvis[0]) != 5) {
+                            echo "<i class='fa-regular fa-star'></i>";
+                        }
+                    }
+                    echo '</div>';
+                }
+                
+                // echo "<p class='info'>" . trim($resultsAvis[0]) . ' étoiles</p>';
+
+                echo "<p class='info'>" . trim($results[6]) . '</p>';
+                echo '</div>';
+
+                // Vérification si une variable nommée $image existe, et si c'est le cas, affiche une image
+                /*if(isset($image)){
+                    echo '<img class="image" src="'.$image.'" alt="Texte alternatif"></a>';
+                }*/
+
+                // Affichage du prix du billet
+                echo "<div class='price-date-container'>";
+                echo "<p>Prix</p>";
+                echo "<p class='price-date'>" . trim($results[2]) . '€</p>';
+                
+                $thedate = trim($results[7]);
+
+                /*echo "<input type='date' id='DATE' name='DATE'
+                value='$thedate'
+                min='$thedate'
+                max='$thedate'></div>";*/
+
+                $date = date("d-m-Y", strtotime($thedate));
+                echo "<div class='price-date'>";
+                echo "<p>Date de l'événement</p>";
+                echo "<div class='date'>$date</div>";
+                //echo "<div class='date'><i class='fa-solid fa-calendar-days'></i></div>";
+                echo '</div>';
+                
+                echo '</div>';
+                
+                echo "</section>";
 
                 // Bouton "Ajouter au panier"
                 echo '<form action="panier.php" method="post">';
@@ -73,56 +149,3 @@
         </main>
     </body>
 </HTML>
-
-<!-- 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="details.css" />
-        <script src="https://kit.fontawesome.com/7c2235d2ba.js" crossorigin="anonymous"></script>
-        <title>CDSpeed</title>
-    </head>
-    <body>
-        <header>
-            <a href = "index.php">
-                <img class="logo"
-                src="logo.png"
-                alt="CDSpeed">
-                </a>
-
-            <section class="bag-log">
-                <a href="panier.php"><i class="fa-solid fa-bag-shopping"></i></a>
-
-                <a href = "login.html" >
-                    <button class="favorite styled" type="button">
-                        Connexion
-                    </button>
-                </a>
-            </section>
-        </header>
-
-        <main>
-            <?php
-                // Charge le fichier XML dans un objet SimpleXML
-                $xml = simplexml_load_file('../BD/bd.xml');
-
-                // Récupère l'identifiant de l'article dans la variable $id
-                $id = $_GET['id'];
-
-                // Utilise l'identifiant de l'article pour afficher les détails de l'article sur la page detail.php
-                echo '<img class="image" src="../BD/Images/' . $xml->cd[$id-1]->image . '" alt="Texte alternatif"></a>';
-                echo '<h2>' . $xml->cd[$id-1]->titre . '</h2>';
-                echo '<p>' . $xml->cd[$id-1]->auteur . '</p>';
-                echo '<p>' . $xml->cd[$id-1]->prix . '</p>';
-
-                // Bouton "Ajouter au panier"
-                echo '<form action="panier.php" method="post">';
-                echo '<input type="hidden" name="id" value="' . $id . '">';
-                echo '<input type="submit" value="Ajouter au panier">';
-                echo '</form>';
-            ?>
-        </main>
-    </body>
-</html>
- -->
