@@ -10,7 +10,6 @@ body {
     align-items: center;
     height: max-content;
     background-color: #e6e1f5;
-    column-gap: 10px;
     padding: 10px;
     width: -webkit-fill-available;
   }
@@ -56,6 +55,10 @@ body {
   form a:hover {
     text-decoration: underline;
   }
+
+#verifCaptcha {
+  display: grid;
+}
 
   /*Header code*/
 

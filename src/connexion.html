@@ -27,8 +27,15 @@
         <!-- Formulaire de connexion -->
         <form action="login.php" method="post">
           <h2>Connexion</h2>
+          <span>Email : </span> 
           <input type="email" name="email" placeholder="Adresse email">
+          <span>Mot de passe : </span> 
           <input type="password" name="password" placeholder="Mot de passe">
+          <section id ="VerifCaptcha">
+            <span>Vérification :</span>
+            <img src="generationCaptcha.php"></img>
+            <input type="codeCaptcha" name="codeCaptcha" placeholder="Code du Captcha">
+          </section>
           <input type="submit" value="Se connecter">
           <a href = "inscription.html">Pas encore de compte ?</a>
         </form>

@@ -29,7 +29,7 @@
         <h2>Inscription</h2>
         <span>Pseudo : </span>  
         <input type="text" name="pseudo" placeholder="Votre pseudo">
-        <span>Email : : </span>  
+        <span>Email : </span>  
         <input type="email" name="email" placeholder="Votre adresse email">
         <span>Mot de passe : </span>  
         <input type="password" name="password" placeholder="Votre mot de passe">
@@ -44,6 +44,11 @@
         <input type="codePostal" name="codePostal" placeholder="Votre code postal">
         <span>Adresse : </span>  
         <input type="adresse" name="adresse" placeholder="Votre adresse">
+        <section id = "verifCaptcha">
+          <span>Vérification :</span>
+          <img src="generationCaptcha.php"></img>
+          <input type="codeCaptcha" name="codeCaptcha" placeholder="Code du Captcha">
+        </section>
         <input type="submit" value="S'inscrire">
         <a href = "connexion.html">Déjà un compte ?</a>
       </form>

@@ -4,18 +4,17 @@ body {
     padding: 0;
   }
 
-  main {
+main {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 95vh;
     background-color: #e6e1f5;
-    column-gap: 10px;
     padding: 10px;
     width: -webkit-fill-available;
   }
 
-  form {
+form {
     width: 400px;
     padding: 40px;
     border-radius: 10px;
@@ -23,12 +22,12 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 
-  form h2 {
+form h2 {
     text-align: center;
     margin-bottom: 40px;
   }
 
-  form input {
+form input {
     display: block;
     width: 100%;
     padding: 10px;
@@ -38,24 +37,29 @@ body {
     box-sizing: border-box;
   }
 
-  form input[type="submit"] {
+form input[type="submit"] {
     background-color: #4a0087ff;
     color: #fff;
     cursor: pointer;
   }
 
-  form input[type="submit"]:hover {
+form input[type="submit"]:hover {
     background-color: #521f9b8f    ;
   }
 
-  form a {
+form a {
     color: #ca00ff;
     text-decoration: none;
   }
 
-  form a:hover {
+form a:hover {
     text-decoration: underline;
   }
+
+
+#VerifCaptcha {
+    display: grid;
+}
 
   /*Header code*/
 
@@ -66,6 +70,7 @@ header {
     padding: 10px 20px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    height: 5vh;
 }
 
 #headGauche {
