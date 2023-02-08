@@ -1,25 +1,25 @@
 <?php 
-    // Connexion à la base de données
-    include('ConnBD.php');
-    $conn = ConnBD();
-    session_start();   
+// Connexion à la base de données
+include('ConnBD.php');
+$conn = ConnBD();
+session_start();
 
-    // Requête pour récupérer tous les billets
-    $query = "SELECT * FROM Billet;";
-    $result = mysqli_query($conn, $query);
+// Requête pour récupérer tous les billets
+$query = "SELECT * FROM Billet;";
+$result = mysqli_query($conn, $query);
 
-    // Stockage des billets dans un tableau PHP
-    $billets = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $billets[] = $row;
-    }
+// Stockage des billets dans un tableau PHP
+$billets = array();
+while ($row = mysqli_fetch_assoc($result)) {
+  $billets[] = $row;
+}
 
-    // Initialisation des tableaux pour chaque genre
-    $sports = array();
-    $concerts = array();
-    $festivals = array();
+// Initialisation des tableaux pour chaque genre
+$sports = array();
+$concerts = array();
+$festivals = array();
 
-    // Parcours des billets et classement selon leur genre
+// Parcours des billets et classement selon leur genre
 ?>
 <!DOCTYPE html>
 <HTML>
@@ -29,21 +29,8 @@
         <script src="https://kit.fontawesome.com/7c2235d2ba.js" crossorigin="anonymous"></script>
         <title>Tickets'Press</title>
     </head>
-    
-    <script type="text/javascript">
-        function refresh_part_of_page(){
-            $.ajax({
-                url: 'http://lakartxela.iutbayonne.univ-pau.fr/~qrobert001/s3/avecDesFonctionPartout+Site/index.php',
-                success: function(data){
-                    $('#part_of_page_to_refresh').html(data);
-                }
-            });
-        }
-    </script>
-
     <body>
-        <!-- Entête de la page -->
-        <header>
+    <header>
             <section id = "headGauche">
                 <button>Vendre ses billets</button>
                 <div>
@@ -64,15 +51,18 @@
         <main>
             <!-- Formulaire pour sélectionner la date -->
             <form>
-                <label for="DATE">Date: </label>
+                <label for="date">Date: </label>
                 <!-- Champ pour sélectionner la date -->
-                <div><input type="date" id="DATE" name="DATE" onclick="refresh_part_of_page()"
+                <div><input type="date" id="date" name="date" onclick="refresh_part_of_page()"
                 value="<?php echo $thedate=date('Y-m-d'); ?>"
                 min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d', strtotime('+5 year'));?>"></div>
             </form>
-
-            <?php
-                echo "<section id='part_of_page_to_refresh'>";
+    <script type="text/javascript" src="date.js"></script>
+    <?php include 'check_date.php'; ?>    
+    </body>
+</HTML>
+<?php
+                echo "<section id='billet'>";
                 foreach ($billets as $billet) {
                     $genre = trim($billet['genre']);
                     switch ($genre) {
@@ -142,12 +132,9 @@
 
         <!-- Pied de page -->
         <footer>
-            <? echo "<div id='part_of_page_to_refresh'> $thedate </div>"; ?>
+            <? echo "<section id='billet'> $thedate </div>"; ?>
         </footer>
-
         
-    </body>
-</HTML>
 
 
 
