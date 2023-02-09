@@ -26,7 +26,7 @@
     <main>
       <!-- Formulaire d'inscription -->
       <form action="register.php" method="post">
-        <h2>Inscription</h2>
+        <h2>Inscription</h2><hr>
         <span>Pseudo : </span>  
         <input type="text" name="pseudo" placeholder="Votre pseudo">
         <span>Email : </span>  
@@ -37,13 +37,13 @@
         <span>Date de naissance : </span>       
         <input type="date" id="DATE" name="DATE" onclick="refresh_part_of_page()"  >
         <span>Pays : </span>  
-        <input type="pays" name="pays" placeholder="Votre pays">
+        <input type="text" name="pays" placeholder="Votre pays">
         <span>Région : </span>  
-        <input type="region" name="region" placeholder="Votre région">
+        <input type="text" name="region" placeholder="Votre région">
         <span>Code Postal : </span>  
-        <input type="codePostal" name="codePostal" placeholder="Votre code postal">
+        <input type="text" name="codePostal" placeholder="Votre code postal">
         <span>Adresse : </span>  
-        <input type="adresse" name="adresse" placeholder="Votre adresse">
+        <input type="text" name="adresse" placeholder="Votre adresse">
         <section id = "verifCaptcha">
           <span>Vérification :</span>
           <img src="generationCaptcha.php"></img>
