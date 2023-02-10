@@ -5,7 +5,8 @@
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if (empty($email) || empty($password)) {
+    
+    if (empty($email) || empty($password)) { // Si l'email ou le mot de passe est vide, on redirige vers la page de connexion
         header('Location: connexion.html');
     }
 
@@ -35,19 +36,33 @@
 
     $hash = password_hash($user['mdp'], PASSWORD_DEFAULT);
 
-    // Si l'utilisateur n'existe pas, on renvoie une erreur
-    if (!$user) {
-        header('Location: connexion.html');
-    } else {
-        // On vérifie que le mot de passe envoyé correspond au mot de passe stocké dans la base de données
-        if (password_verify($password, $hash)) {
-            $_SESSION['user_id'] = $user['idUti'];
-            header('Location: index.php');
-            exit;
-        } else {
-            header('Location: connexion.html');
+    
+    
+
+    if (isset($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha'])
+    {
+        // Si l'utilisateur n'existe pas, on redirige vers la page de connexion
+        if (!$user) {
+            header('Location: connexion.html'); // Utilisateur inexistant
+        } 
+        else 
+        {
+            // On vérifie que le mot de passe envoyé correspond au mot de passe stocké dans la base de données
+            if (password_verify($password, $hash)) {
+                $_SESSION['user_id'] = $user['idUti'];
+                header('Location: index.php');
+                exit;
+            } 
+            else {
+                header('Location: connexion.html'); // Mot de passe incorrect
+            }
         }
+    }   
+    else 
+    {
+        header('Location: connexion.html'); // Captcha non valide
     }
+    
     
     $conn = null;
 
