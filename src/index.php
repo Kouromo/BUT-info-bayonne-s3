@@ -70,7 +70,11 @@ $thedate = date('Y-m-d');
             <!-- Formulaire pour sélectionner la date -->
             <form>
 
+<<<<<<< HEAD
     <label for="date">billet disponible à partir du :  </label>
+=======
+    <label for="date">Date: </label>
+>>>>>>> 291d16b42a6e3ef44c7484688635071a0ae3356a
     <!-- Champ pour sélectionner la date -->
     <div>
         <input type="date" id="dateInput" name="date" value="<?php echo date('Y-m-d');?>"    min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d', strtotime('+5 year'));?>">
