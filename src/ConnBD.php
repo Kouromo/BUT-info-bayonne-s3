@@ -15,7 +15,11 @@
     function ConnBD()
     {
         // Définition d'une variable de test
-        $mail = "LisaLabelleGosse@gmail.com";
+        if ($_SESSION['user_id'] == null)
+        {
+            
+        }
+        //$mail = "LisaLabelleGosse@gmail.com";
 
         // Définition de variables pour se connecter à la base de donnée
         $servername = 'lakartxela.iutbayonne.univ-pau.fr';
