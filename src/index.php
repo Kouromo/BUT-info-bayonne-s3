@@ -1,26 +1,24 @@
 <?php 
-// Connexion à la base de données
-include('ConnBD.php');
-$conn = ConnBD();
-session_start();
+    session_start();
+    // Connexion à la base de données
+    include('ConnBD.php');
+    $conn = ConnBD();
+    // Requête pour récupérer tous les billets
+    
+    $query = "SELECT * FROM Billet;";
+    $result = mysqli_query($conn, $query);
 
-// Requête pour récupérer tous les billets
-$query = "SELECT * FROM Billet;";
-$result = mysqli_query($conn, $query);
-
-// Stockage des billets dans un tableau PHP
-$billets = array();
-while ($row = mysqli_fetch_assoc($result)) {
-  $billets[] = $row;
-}
-
-// Initialisation des tableaux pour chaque genre
+    // Stockage des billets dans un tableau PHP
+    $billets = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $billets[] = $row;
+    }
+$thedate = date('Y-m-d');
 $sports = array();
 $concerts = array();
 $festivals = array();
-
-// Parcours des billets et classement selon leur genre
 ?>
+
 <!DOCTYPE html>
 <HTML>
     <head>
@@ -30,44 +28,75 @@ $festivals = array();
         <title>Tickets'Press</title>
     </head>
     <body>
-        <!-- Entête de la page -->
         <header>
+            <section id = "headGauche">
+                <button>Vendre ses billets</button>
+                <div>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input id="searchbar" onkeyup="search_ticket()" type="text"
+                    name="search" placeholder="Rechercher">
+
+                </div>
+            </section>
+            <section id = "headDroite">
+                <div>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </section>
         </header>
 
         <!-- Contenu principal de la page -->
         <main>
             <!-- Formulaire pour sélectionner la date -->
             <form>
-                <label for="DATE">Date: </label>
-                <!-- Champ pour sélectionner la date -->
-                <div><input type="date" id="DATE" name="DATE"
-                    value="<?php echo $thedate=date('Y-m-d'); ?>"
-                    min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d', strtotime('+5 year'));?>"></div>
-            </form>
-        </main>
+    <label for="date">Date: </label>
+    <!-- Champ pour sélectionner la date -->
+    <div>
+        <input type="date" id="dateInput" name="date" value="<?php echo date('Y-m-d');?>"    min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d', strtotime('+5 year'));?>">
+        <button id="refreshButton">Rafraîchir</button>
+    </div>
+</form>
 
-        <!-- Pied de page -->
-        <footer>
-        </footer>
-    </body>
-</HTML>
+<script>
+  document.getElementById("refreshButton").addEventListener("click", function(event) {
+    event.preventDefault(); // Empêche la soumission du formulaire
+
+    var date = document.getElementById("dateInput").value;
+
+    // Envoi d'une requête AJAX pour récupérer les billets correspondants à la date entrée
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "get_posts.php?date=" + date, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+        // Mise à jour de l'affichage des billets
+        document.getElementById("billet").innerHTML = xhr.responseText;
+      }
+    };
+    xhr.send();
+  });
+</script>
 
 
+
+    
 
 <?php
+echo "<section id='billet'>";
 foreach ($billets as $billet) {
-  $genre = trim($billet['genre']);
-  switch ($genre) {
-    case 'sport':
-      $sports[] = $billet;
-      break;
-    case 'concert':
-      $concerts[] = $billet;
-      break;
-    case 'festival':
-      $festivals[] = $billet;
-      break;
-  }
+    $genre = trim($billet['genre']);
+    switch ($genre) {
+        case 'sport':
+        $sports[] = $billet;
+        break;
+
+        case 'concert':
+        $concerts[] = $billet;
+        break;
+
+        case 'festival':
+        $festivals[] = $billet;
+        break;
+    }
 }
 
 
@@ -75,46 +104,54 @@ foreach ($billets as $billet) {
 echo '<h2>Sports</h2>';
 echo '<div style="display: flex;">';
 foreach ($sports as $sport) {
-  if (strtotime($sport['dateExp']) >= strtotime($thedate)) {
-  echo '<div style="width: 175px; word-wrap: break-word;">';
-  echo '<a href="achat.php?id=' . $sport['id'] . '">';
-  echo '<img src="images/sport.jpg"> <br>';
-  echo '<span style="font-size: smaller;">' . $sport['libelle'] . '</span><br>';
-  echo '</a>';
-  echo '</div>';
-  }
+    if (strtotime($sport['dateExp']) >= strtotime($thedate)) {
+        echo '<div style="width: 175px; word-wrap: break-word;">';
+        echo '<a href="achat.php?id=' . $sport['id'] . '">';
+        echo '<img src="images/sport.jpg"> <br>';
+        echo '<span style="font-size: smaller;">' . $sport['libelle'] . '</span><br>';
+        echo '</a>';
+        echo '</div>';
+    }
 }
 echo '</div>';
 
 echo '<h2>Concerts</h2>';
 echo '<div style="display: flex;">';
 foreach ($concerts as $concert) {
-  if (strtotime($concert['dateExp']) >= strtotime($thedate)) {
-  echo '<div style="width: 175px; word-wrap: break-word;">';
-  echo '<a href="achat.php?id=' . $concert['id'] . '">';
-  echo '<img src="images/concert.jpg"> <br>';
-  echo '<span style="font-size: smaller;">' . $concert['libelle'] . '</span><br>';
-  echo '</a>';
-  echo '</div>';
-  }
+    if (strtotime($concert['dateExp']) >= strtotime($thedate)) {
+        echo '<div style="width: 175px; word-wrap: break-word;">';
+        echo '<a href="achat.php?id=' . $concert['id'] . '">';
+        echo '<img src="images/concert.jpg"> <br>';
+        echo '<span style="font-size: smaller;">' . $concert['libelle'] . '</span><br>';
+        echo '</a>';
+        echo '</div>';
+    }
 }
+
 echo '</div>';
 
 echo '<h2>Festivals</h2>';
 echo '<div style="display: flex;">';
 foreach ($festivals as $festival) {
-  if (strtotime($festival['dateExp']) >= strtotime($thedate)) {
-  echo '<div style="width: 175px; word-wrap: break-word;">';
-  echo '<a href="achat.php?id=' . $festival['id'] . '">';
-  echo '<img src="images/festival.jpg"> <br>';
-  echo '<span style="font-size: smaller;">' . $festival['libelle'] . '</span><br>';
-  echo '</a>';
-  echo '</div>';
-  }
+    if (strtotime($festival['dateExp']) >= strtotime($thedate)) {
+        echo '<div style="width: 175px; word-wrap: break-word;">';
+        echo '<a href="achat.php?id=' . $festival['id'] . '">';
+        echo '<img src="images/festival.jpg"> <br>';
+        echo '<span style="font-size: smaller;">' . $festival['libelle'] . '</span><br>';
+        echo '</a>';
+        echo '</div>';
+    }
 }
 echo '</div>';
 
+echo "</section>";
 
 ?>
 
+</main>
 
+<!-- Pied de page -->
+<footer>
+</footer>      
+    </body>
+</HTML>
