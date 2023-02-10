@@ -44,6 +44,20 @@
     <body>
         <!-- Entête de la page -->
         <header>
+            <section id = "headGauche">
+                <button>Vendre ses billets</button>
+                <div>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input id="searchbar" onkeyup="search_ticket()" type="text"
+                    name="search" placeholder="Rechercher">
+
+                </div>
+            </section>
+            <section id = "headDroite">
+                <div>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </section>
         </header>
 
         <!-- Contenu principal de la page -->
