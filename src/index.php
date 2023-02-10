@@ -1,10 +1,11 @@
 <?php 
-    session_start();
+
     // Connexion à la base de données
     include('ConnBD.php');
     $conn = ConnBD();
+    session_start();   
+
     // Requête pour récupérer tous les billets
-    
     $query = "SELECT * FROM Billet;";
     $result = mysqli_query($conn, $query);
 
@@ -13,10 +14,17 @@
     while ($row = mysqli_fetch_assoc($result)) {
         $billets[] = $row;
     }
+
 $thedate = date('Y-m-d');
-$sports = array();
-$concerts = array();
-$festivals = array();
+
+
+    // Initialisation des tableaux pour chaque genre
+    $sports = array();
+    $concerts = array();
+    $festivals = array();
+
+    // Parcours des billets et classement selon leur genre
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +35,18 @@ $festivals = array();
         <script src="https://kit.fontawesome.com/7c2235d2ba.js" crossorigin="anonymous"></script>
         <title>Tickets'Press</title>
     </head>
+    
+    <script type="text/javascript">
+        function refresh_part_of_page(){
+            $.ajax({
+                url: 'http://lakartxela.iutbayonne.univ-pau.fr/~qrobert001/s3/avecDesFonctionPartout+Site/index.php',
+                success: function(data){
+                    $('#part_of_page_to_refresh').html(data);
+                }
+            });
+        }
+    </script>
+
     <body>
         <header>
             <section id = "headGauche">
@@ -49,7 +69,8 @@ $festivals = array();
         <main>
             <!-- Formulaire pour sélectionner la date -->
             <form>
-    <label for="date">Date: </label>
+
+    <label for="date">billet disponible à partir du :  </label>
     <!-- Champ pour sélectionner la date -->
     <div>
         <input type="date" id="dateInput" name="date" value="<?php echo date('Y-m-d');?>"    min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d', strtotime('+5 year'));?>">
@@ -60,7 +81,6 @@ $festivals = array();
 <script>
   document.getElementById("refreshButton").addEventListener("click", function(event) {
     event.preventDefault(); // Empêche la soumission du formulaire
-
     var date = document.getElementById("dateInput").value;
 
     // Envoi d'une requête AJAX pour récupérer les billets correspondants à la date entrée
@@ -79,6 +99,7 @@ $festivals = array();
 
 
     
+
 
 <?php
 echo "<section id='billet'>";
@@ -149,6 +170,8 @@ echo "</section>";
 ?>
 
 </main>
+
+
 
 <!-- Pied de page -->
 <footer>

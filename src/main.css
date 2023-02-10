@@ -1,3 +1,56 @@
+/*Header */
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: grid;
+    /*justify-content:left;*/
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 10px 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+#headGauche {
+    grid-column: 1;
+    display: inline-flex;
+    column-gap: 30px;
+}
+
+#headDroite {
+    grid-column: 2;
+    justify-self: right;
+}
+
+header button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+header input[type="text"] {
+    padding: 12px 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 20px;
+}
+
+.fa-magnifying-glass {
+    font-size: 24px;
+}
+
+.fa-user {
+    font-size: 24px;
+    margin-right: 20px;
+}
+
+
 /* Style the links inside the navigation bar */
 .categories a {
     float: left;
@@ -47,4 +100,5 @@ img {
     height: 150px;
     object-fit: cover;
  }
+ 
  
