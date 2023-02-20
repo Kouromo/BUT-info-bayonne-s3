@@ -3,20 +3,20 @@
     // Connexion à la base de données
     include('ConnBD.php');
     $conn = ConnBD();
-    session_start();   
 
     // Requête pour récupérer tous les billets
     $query = "SELECT * FROM Billet;";
-    $result = mysqli_query($conn, $query);
+    
+
+    $result = $conn->query($query); //$result = mysqli_query($conn, $query);
 
     // Stockage des billets dans un tableau PHP
     $billets = array();
-    while ($row = mysqli_fetch_assoc($result)) {
+    while ($row = $result->fetch()) {
         $billets[] = $row;
     }
 
-$thedate = date('Y-m-d');
-
+    $thedate = date('Y-m-d');
 
     // Initialisation des tableaux pour chaque genre
     $sports = array();

@@ -21,7 +21,7 @@
         $posY = 30;
 
         // Boucle jusqu'à la fin de la chaine text
-        for ($i=0; $i < $_SESSION['text_length']-1; $i++)
+        for ($i=0; $i <= $_SESSION['text_length']-1; $i++)
         { 
             $_SESSION['image_t'] = imagecreate($_SESSION['width'], $_SESSION['height']);
             $white = imagecolorallocate($_SESSION['image_t'], 255, 255, 255);

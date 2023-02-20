@@ -32,23 +32,20 @@ class Captcha{
     * Constructeur de la classe Captcha demandant en paramètre le niveau de difficulté
     * @param string $diff  Difficulté du captcha, mis par défaut sur hard
     */
-    public function __construct($diff = 'hard')
+    public function __construct($diff = 'hard', $attempt = True)
     {
         session_start();
 
-        ConnBD();
-
+        if ($attempt == True)
+        {
+            ConnBD();
+            // Définir une variable pour enregistrer le nombre de tentatives de chaque utilisateur
+            $_SESSION['attempts'] = 0;
+            // Définir une variable pour enregistrer la liste des utilisateurs suspects
+            $_SESSION['suspects'] = array();
+        }
         
         $this->setDifficulty($diff);
-
-        // Définir une variable pour enregistrer le nombre de tentatives de chaque utilisateur
-        $_SESSION['attempts'] = 0;
-
-        // Définir une variable pour enregistrer la liste des utilisateurs suspects
-        $_SESSION['suspects'] = array();
-
-
-
 
         // Définir la longueur et la quantité de distorsion en fonction du niveau de difficulté
         $this->InterpreterDifficulte($diff);
