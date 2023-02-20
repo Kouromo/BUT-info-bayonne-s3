@@ -50,21 +50,20 @@
             // On vérifie que le mot de passe envoyé correspond au mot de passe stocké dans la base de données
             if (password_verify($password, $hash)) {
                 $_SESSION['user_id'] = $user['idUti'];
+                $conn = null;
                 header('Location: index.php');
                 exit;
             } 
             else {
+                $conn = null;
                 header('Location: connexion.html'); // Mot de passe incorrect
             }
         }
     }   
     else 
-    {
+    {   
+        $conn = null;
         header('Location: connexion.html'); // Captcha non valide
     }
-    
-    
-    $conn = null;
-
 
 ?>

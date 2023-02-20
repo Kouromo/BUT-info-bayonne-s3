@@ -44,10 +44,11 @@
         <input type="text" name="codePostal" placeholder="Votre code postal">
         <span>Adresse : </span>  
         <input type="text" name="adresse" placeholder="Votre adresse">
-        <section id = "verifCaptcha">
+        <section id ="VerifCaptcha">
           <span>Vérification :</span>
-          <img src="generationCaptcha.php"></img>
-          <input type="codeCaptcha" name="codeCaptcha" placeholder="Code du Captcha">
+          <img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img>
+          <input type="button" value="Refresh Captcha" onClick="location.href=location.href">
+          <input type="txt" name="codeCaptcha" placeholder="Code du Captcha">
         </section>
         <input type="submit" value="S'inscrire">
         <a href = "connexion.html">Déjà un compte ?</a>
