@@ -10,7 +10,10 @@
  */
 
 
+
+
 include ('creationImage.php');
+
 include ('ConnBD.php');
 class Captcha{
 
