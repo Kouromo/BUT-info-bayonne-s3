@@ -60,7 +60,26 @@
             </section>
             <section id = "headDroite">
                 <div>
-                    <i class="fa-solid fa-user"></i>
+                    <?php
+                     if (isset($_SESSION['user_id']) == false)
+                     {
+                        echo '<a href="connexion.html">';
+                        echo '<i class="fa-solid fa-user"></i>';
+                        echo '<label for="user">Se connecter</label>';
+                        echo '</a>';
+                     }
+                     else
+                     {
+                        $idUtilisateur = $_SESSION['user_id'];
+                        $query  = "SELECT pseudo FROM Utilisateur WHERE idUti = $idUtilisateur;";
+
+                        echo '<a href="#">';
+                        echo '<i class="fa-solid fa-user"></i>';
+                        echo '<label for="user">Mon compte</label>';
+                        echo '</a>';
+                     }
+                    ?>
+                    
                 </div>
             </section>
         </header>
