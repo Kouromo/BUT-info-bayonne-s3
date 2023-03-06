@@ -1,7 +1,6 @@
 <?php
     include('ConnBD.php');
     $conn = ConnBD();
-    session_start();
 
     $id = $_GET['id'];
 
@@ -51,10 +50,12 @@
 
                 // Requete pour sélectionner toute les informations sur un billet en particulier en fonction de son identifiant
                 $query = "SELECT * FROM Billet WHERE id = '$id';";
-                $result = mysqli_query($conn, $query);
+                //exécute la requête en PDO
+                $result = $conn->query($query); //$result = mysqli_query($conn, $query);
 
                 // On mets les résultats proprement dans results
-                $results = mysqli_fetch_array($result, MYSQLI_BOTH);
+                // convertie la requête en PDO
+                $results = $result->fetch(); //$results = mysqli_fetch_array($result, MYSQLI_BOTH);
 
                 // On initialise une variable image qui sera le chemin d'accès à l'image correspondant à l'id
                 $image = 'Images/' . trim($results[3]) . '.jpg';
@@ -71,9 +72,11 @@
                 
                 // Requete pour sélectionner le pseudo de l'utilisateur qui a mis en vente le billet en se servant de son identifiant
                 $queryUser = "SELECT pseudo FROM Utilisateur WHERE idUti = '$results[9]';";
-                $resultUser = mysqli_query($conn, $queryUser);
+                // exécute la requête en PDO
+                $resultUser = $conn->query($queryUser); //$resultUser = mysqli_query($conn, $queryUser);
 
-                $resultsUser = mysqli_fetch_array($resultUser, MYSQLI_BOTH);
+                // exécute la requête en PDO
+                $resultsUser = $resultUser->fetch(); // $resultsUser = mysqli_fetch_array($resultUser, MYSQLI_BOTH);
                 
                 // Affichage du nom d'utilisateur qui vend le billet
                 echo "<p class='info'>" . trim($resultsUser[0]) . '</p>';
@@ -81,11 +84,11 @@
                 // $id2 = 'a004';
 
                 // Requete pour sélectionner la moyenne des avis sur un utilisateur en se servant de son identifiant
-                $queryAvis = "SELECT AVG(noteAvis) FROM Avis WHERE idReceveur = '$results[9]';";
-                // $queryAvis = "SELECT AVG(noteAvis) FROM Avis WHERE idReceveur = '$id2';";
-                $resultAvis = mysqli_query($conn, $queryAvis);
+                $queryAvis = "SELECT AVG(noteAvis) FROM Avis WHERE idReceveur = '$results[9]';"; // $queryAvis = "SELECT AVG(noteAvis) FROM Avis WHERE idReceveur = '$id2';";
 
-                $resultsAvis = mysqli_fetch_array($resultAvis, MYSQLI_BOTH);
+                $resultAvis = $conn->query($queryAvis); //$resultAvis = mysqli_query($conn, $queryAvis);
+
+                $resultsAvis = $resultAvis->fetch(); //$resultsAvis = mysqli_fetch_array($resultAvis, MYSQLI_BOTH);
                 
                 if (is_numeric(trim($resultsAvis[0]))) {
                     echo "<div class='icon-container'>";

@@ -1,25 +1,32 @@
 <?php
 include('ConnBD.php');
 $conn = ConnBD();
-  $date = $_GET['date'];
+    $date = $_GET['date'];
 
-  // Connexion à la base de données
+    // Connexion à la base de données
 
-  // Récupération des billets correspondants à la date entrée
-  $query = "SELECT * FROM Billet WHERE dateExp > '" . $date . "'";
-  $result = mysqli_query($conn, $query);
-  $billets = array();
-    while ($row = mysqli_fetch_assoc($result)) {
+    // Récupération des billets correspondants à la date entrée
+    /*$query = "SELECT * FROM Billet WHERE dateExp > '" . $date . "'";
+    $result = mysqli_query($conn, $query);*/
+    $stmt = $conn->prepare("SELECT * FROM Billet WHERE dateExp > :date");
+
+    $stmt->execute(array(':date' => $date)); // $billets = array();
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC /*$row = mysqli_fetch_assoc($result)*/)) {
         $billets[] = $row;
     }
+ 
     $sports = array();
-$concerts = array();
-$festivals = array();
-  // Construction de l'affichage HTML des billets
-  $html = "";
+    // trier les sports en PDO
 
-  echo "<section id='billet'>";
-foreach ($billets as $billet) {
+
+    $concerts = array();
+    $festivals = array();
+    // Construction de l'affichage HTML des billets
+    $html = "";
+
+    echo "<section id='billet'>";
+    foreach ($billets as $billet) {
     $genre = trim($billet['genre']);
     switch ($genre) {
         case 'sport':
@@ -80,9 +87,10 @@ echo '</div>';
 
 echo "</section>";
   
+  // Fermeture de la connexion à la base de données PDO
+    $conn = null; //mysqli_close($conn);
 
-  // Fermeture de la connexion à la base de données
-  mysqli_close($conn);
+  
 
   // Renvoi de l'affichage HTML des billets
   echo $html;

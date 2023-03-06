@@ -2,7 +2,6 @@
     include('ConnBD.php');
     
     $conn = ConnBD();
-    session_start();
  
     // Vérifie si la variable de session "panier" existe
     if (!isset($_SESSION['panier'])) {
@@ -61,10 +60,10 @@
 
                     // Requete pour sélectionner toute les informations sur un billet en particulier en fonction de son identifiant
                     $query = "SELECT * FROM Billet WHERE id = '$id';";
-                    $result = mysqli_query($conn, $query);
+                    $result = $conn->query($query); // $result = mysqli_query($conn, $query);
 
                     // On mets les résultats proprement dans results
-                    $results = mysqli_fetch_array($result, MYSQLI_BOTH);
+                    $results = $result->fetch(); // $results = mysqli_fetch_array($result, MYSQLI_BOTH);
 
                     // Utilise l'identifiant de l'article pour récupérer les informations de l'article dans le fichier XML
                     $titre = trim($results[1]);
