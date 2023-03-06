@@ -37,8 +37,6 @@
         <header>
             <button>Vendre ses billets</button>
             <i class="fa-solid fa-user"></i>
-            <input id="searchbar" onkeyup="search_ticket()" type="text"
-            name="search" placeholder="Search tickets..">
         </header>
 
         <main>

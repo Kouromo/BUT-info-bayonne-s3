@@ -1,0 +1,60 @@
+<HTML>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="inscription.css" />
+    <script src="https://kit.fontawesome.com/7c2235d2ba.js" crossorigin="anonymous"></script>
+    <title>Page de login ou de sign in</title>
+  </head>
+
+  <body>
+      <header>
+        <section id = "headGauche">
+            <button>Vendre ses billets</button>
+            <div>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="searchbar" onkeyup="search_ticket()" type="text"
+                name="search" placeholder="Rechercher">
+
+            </div>
+        </section>
+        <section id = "headDroite">
+            <div>
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </section>
+    </header>
+    <main>
+      <!-- Formulaire d'inscription -->
+      <form action="register.php" method="post">
+        <h2>Inscription</h2><hr>
+        <span>Pseudo : </span>  
+        <input type="text" name="pseudo" placeholder="Votre pseudo">
+        <span>Email : </span>  
+        <input type="email" name="email" placeholder="Votre adresse email">
+        <span>Mot de passe : </span>  
+        <input type="password" name="password" placeholder="Votre mot de passe">
+        <input type="password" name="confirm_password" placeholder="Confirmer votre mot de passe">
+        <span>Date de naissance : </span>       
+        <input type="date" id="DATE" name="DATE" onclick="refresh_part_of_page()"  >
+        <span>Pays : </span>  
+        <input type="text" name="pays" placeholder="Votre pays">
+        <span>Région : </span>  
+        <input type="text" name="region" placeholder="Votre région">
+        <span>Code Postal : </span>  
+        <input type="text" name="codePostal" placeholder="Votre code postal">
+        <span>Adresse : </span>  
+        <input type="text" name="adresse" placeholder="Votre adresse">
+        <section id ="VerifCaptcha">
+          <span>Vérification :</span>
+          <img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img>
+          <input type="button" value="Refresh Captcha" onClick="location.href=location.href">
+          <input type="txt" name="codeCaptcha" placeholder="Code du Captcha">
+        </section>
+        <input type="submit" value="S'inscrire">
+        <a href = "connexion.html">Déjà un compte ?</a>
+      </form>
+    </main>
+  </body>
+
+  
+</HTML>
