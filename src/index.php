@@ -16,7 +16,9 @@
         $billets[] = $row;
     }
 
+
     $thedate = date('Y-m-d');
+
 
     // Initialisation des tableaux pour chaque genre
     $sports = array();
@@ -70,25 +72,27 @@
             <!-- Formulaire pour sélectionner la date -->
             <form>
 
-    <label for="date">Date: </label>
+
+    <label for="date">billet disponible à partir du :  </label>
     <!-- Champ pour sélectionner la date -->
     <div>
         <input type="date" id="dateInput" name="date" value="<?php echo date('Y-m-d');?>"    min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d', strtotime('+5 year'));?>">
-        <button id="refreshButton">Rafraîchir</button>
+      
     </div>
 </form>
 
 <script>
-  document.getElementById("refreshButton").addEventListener("click", function(event) {
-    event.preventDefault(); // Empêche la soumission du formulaire
-    var date = document.getElementById("dateInput").value;
+  document.getElementById("dateInput").addEventListener("change", function(event) {
+    
+    var date = this.value;
+    
 
     // Envoi d'une requête AJAX pour récupérer les billets correspondants à la date entrée
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "get_posts.php?date=" + date, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-        // Mise à jour de l'affichage des billets
+        // Mise à jour de l'affichage des billets  
         document.getElementById("billet").innerHTML = xhr.responseText;
       }
     };
@@ -98,7 +102,6 @@
 
 
 
-    
 
 
 <?php
@@ -165,11 +168,61 @@ foreach ($festivals as $festival) {
 }
 echo '</div>';
 
+
+
+
+
+// Affichage des billets pour chaque genre
+echo '<h2>Sports</h2>';
+echo '<div style="display: flex;">';
+foreach ($sports as $sport) {
+    if (strtotime($sport['dateExp']) >= strtotime($thedate)) {
+        echo '<div style="width: 175px; word-wrap: break-word;">';
+        echo '<a href="achat.php?id=' . $sport['id'] . '">';
+        echo '<img src="images/sport.jpg"> <br>';
+        echo '<span style="font-size: smaller;">' . $sport['libelle'] . '</span><br>';
+        echo '</a>';
+        echo '</div>';
+    }
+}
+echo '</div>';
+
+echo '<h2>Concerts</h2>';
+echo '<div style="display: flex;">';
+foreach ($concerts as $concert) {
+    if (strtotime($concert['dateExp']) >= strtotime($thedate)) {
+        echo '<div style="width: 175px; word-wrap: break-word;">';
+        echo '<a href="achat.php?id=' . $concert['id'] . '">';
+        echo '<img src="images/concert.jpg"> <br>';
+        echo '<span style="font-size: smaller;">' . $concert['libelle'] . '</span><br>';
+        echo '</a>';
+        echo '</div>';
+    }
+}
+
+echo '</div>';
+
+echo '<h2>Festivals</h2>';
+echo '<div style="display: flex;">';
+foreach ($festivals as $festival) {
+    if (strtotime($festival['dateExp']) >= strtotime($thedate)) {
+        echo '<div style="width: 175px; word-wrap: break-word;">';
+        echo '<a href="achat.php?id=' . $festival['id'] . '">';
+        echo '<img src="images/festival.jpg"> <br>';
+        echo '<span style="font-size: smaller;">' . $festival['libelle'] . '</span><br>';
+        echo '</a>';
+        echo '</div>';
+    }
+}
+echo '</div>';
+
 echo "</section>";
+
 
 ?>
 
 </main>
+
 
 
 
