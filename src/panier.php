@@ -34,9 +34,31 @@
         <header>
             <button>Vendre ses billets</button>
             <i class="fa-solid fa-user"></i>
-
         </header>
-
+        <?php
+$docroot = "/zen/index5.php";
+    $path =($_SERVER['REQUEST_URI']);
+    $names = explode("/", $path); 
+    $trimnames = array_slice($names, 1, -1);
+    $length = count($trimnames)-1;
+    $fixme = array(".php","-","myname");
+    $fixes = array(""," ","My<strong>Name</strong>");
+    echo '<div id="breadwrap"><ol id="breadcrumb">';
+    $url = "";
+    for ($i = 2; $i <= $length;$i++){
+    $url .= $trimnames[$i]."/";
+        if($i>0 && $i!=$length){
+            echo '<li><a href="/'.$url.'">'.ucfirst(str_replace($fixme,$fixes,$trimnames[$i]) . ' ').'</a></li>';
+    }
+    elseif ($i == $length){
+        echo '<li class="current">'.ucfirst(str_replace($fixme,$fixes,$trimnames[$i]) . ' ').'</li>';       
+    }
+    else{
+        echo $trimnames[$i]='<li><a href='.$docroot.' id="bread-home"><span>&nbsp;</span></a></li>';
+    }
+}
+echo '</ol>';
+?>
         <?php
             if (empty($_SESSION['panier'])) {
                 echo "<p>Le panier est vide. Pour ajouter du contenu au panier, cliquez sur un BILLET et sélectionnez \"Ajouter au panier\".</p>";
