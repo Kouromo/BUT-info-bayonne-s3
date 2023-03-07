@@ -34,9 +34,7 @@
     // Affiche le contenu de $user['mdp']
     //var_dump($user['mdp']);
 
-    // Hacher le mot de passe
-    //$hash = password_hash($user['mdp'], PASSWORD_DEFAULT);
-
+    $hash = password_hash($user['mdp'], PASSWORD_DEFAULT);
 
     
     
@@ -50,7 +48,7 @@
         else 
         {
             // On vérifie que le mot de passe envoyé correspond au mot de passe stocké dans la base de données
-            if (password_verify($password, $user['mdp'])) {
+            if (password_verify($password, $hash)) {
                 $_SESSION['user_id'] = $user['idUti'];
                 $conn = null;
                 header('Location: index.php');

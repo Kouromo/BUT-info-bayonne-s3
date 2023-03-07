@@ -49,5 +49,4 @@
         //$_SESSION['user_id'] = mysqli_query($conn, $query);
 
     }
-    
 ?>

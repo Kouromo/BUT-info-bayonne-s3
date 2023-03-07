@@ -37,32 +37,7 @@
             <button>Vendre ses billets</button>
             <i class="fa-solid fa-user"></i>
         </header>
-        <?php
-  function breadcrumbs($home = 'Home') {
-    global $page_title;
-    $breadcrumb  = '<div class="breadcrumb-container"><div class="container"><ol class="breadcrumb">';
-    $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'].'/';
-    $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-    $breadcrumb .= '<li><i class="fa fa-home"></i><a href="' . $root_domain . '" title="Home Page"><span>' . $home . '</span></a></li>';
-    $num_breadcrumbs = count($breadcrumbs);
-    $i = 1;
-    foreach ($breadcrumbs as $crumb) {
-        $link = ucwords(str_replace(array(".php","-","_"), array(""," "," "), $crumb));
-        $root_domain .=  $crumb . '/';
-        if ($i == $num_breadcrumbs) {
-            $breadcrumb .= '<li><span>' . $link . '</span></li>';
-        } else {
-            $breadcrumb .= '<li><a href="'. $root_domain .'" title="'.$page_title.'"><span>' . $link . '</span></a></li>';
-        }
-        $i++;
-    }
-    $breadcrumb .= '</ol></div></div>';
-    return $breadcrumb;
-}
-echo breadcrumbs();         
-            
 
-?>
         <main>
             <!-- Contenu de la page -->
             <?php
@@ -83,7 +58,7 @@ echo breadcrumbs();
                 $results = $result->fetch(); //$results = mysqli_fetch_array($result, MYSQLI_BOTH);
 
                 // On initialise une variable image qui sera le chemin d'accès à l'image correspondant à l'id
-                $image = 'Images/' . trim($results[3]) . '.jpg';
+                $image = 'images/' . trim($results[3]) . '.jpg';
 
                 // Vérification si une variable nommée $image existe, et si c'est le cas, affiche une image
                 if(isset($image)){
