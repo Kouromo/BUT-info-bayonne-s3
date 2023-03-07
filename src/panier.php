@@ -34,6 +34,7 @@
         <header>
             <button>Vendre ses billets</button>
             <i class="fa-solid fa-user"></i>
+
         </header>
 
         <?php

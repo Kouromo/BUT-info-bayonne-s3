@@ -16,12 +16,16 @@ while ($row = $result->fetch()) {
     $billets[] = $row;
 }
 
-$thedate = date('Y-m-d');
 
-// Initialisation des tableaux pour chaque genre
-$sports = array();
-$concerts = array();
-$festivals = array();
+
+    $thedate = date('Y-m-d');
+
+
+    // Initialisation des tableaux pour chaque genre
+    $sports = array();
+    $concerts = array();
+    $festivals = array();
+
 
 // Parcours des billets et classement selon leur genre
 
@@ -118,11 +122,69 @@ $festivals = array();
                 };
                 xhr.send();
             });
+
         </script>
 
 
 
-        <?php
+     
+
+       
+
+    <body>
+        <header>
+            <section id = "headGauche">
+                <button>Vendre ses billets</button>
+                <div>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input id="searchbar" onkeyup="search_ticket()" type="text"
+                    name="search" placeholder="Rechercher">
+                </div>
+            </section>
+            <section id = "headDroite">
+                <div>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </section>
+        </header>
+
+        <!-- Contenu principal de la page -->
+        <main>
+            <!-- Formulaire pour sélectionner la date -->
+            <form>
+
+
+    <label for="date">billet disponible à partir du :  </label>
+    <!-- Champ pour sélectionner la date -->
+    <div>
+        <input type="date" id="dateInput" name="date" value="<?php echo date('Y-m-d');?>"    min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d', strtotime('+5 year'));?>">
+      
+    </div>
+</form>
+
+<script>
+  document.getElementById("dateInput").addEventListener("change", function(event) {
+    
+    var date = this.value;
+    
+
+    // Envoi d'une requête AJAX pour récupérer les billets correspondants à la date entrée
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "get_posts.php?date=" + date, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+        // Mise à jour de l'affichage des billets  
+        document.getElementById("billet").innerHTML = xhr.responseText;
+      }
+    };
+    xhr.send();
+  });
+</script>
+
+
+
+
+   <?php
         echo "<section id='billet'>";
         foreach ($billets as $billet) {
             $genre = trim($billet['genre']);
@@ -188,11 +250,14 @@ $festivals = array();
         }
         echo '</div>';
 
-        echo "</section>";
+    echo '<section>';
 
-        ?>
 
-    </main>
+
+
+
+?>
+
 
 
 
@@ -201,4 +266,10 @@ $festivals = array();
     </footer>
 </body>
 
+
+<!-- Pied de page -->
+<footer>
+</footer>      
+    </body>
 </HTML>
+
