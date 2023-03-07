@@ -27,15 +27,15 @@
         <!-- Formulaire de connexion -->
         <form action="login.php" method="post">
           <h2>Connexion</h2> <hr>
-          <span>Email : </span> 
-          <input type="email" name="email" placeholder="Adresse email">
-          <span>Mot de passe : </span> 
-          <input type="password" name="password" placeholder="Mot de passe">
+          <label for="email">Email : </label> 
+          <input type="email" name="email" placeholder="Adresse email" requiered>
+          <label for="password">Mot de passe : </label> 
+          <input type="password" name="password" placeholder="Mot de passe" requiered>
           <section id ="VerifCaptcha">
-            <span>Vérification :</span>
+            <label for="codeCaptcha">Vérification :</label>
             <img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img>
             <input type="button" value="Refresh Captcha" onClick="location.href=location.href">
-            <input type="txt" name="codeCaptcha" placeholder="Code du Captcha">
+            <input type="txt" name="codeCaptcha" placeholder="Code du Captcha" requiered>
           </section>
           <input type="submit" value="Se connecter">
           <a href = "#">Mot de passe oublié ?</a> <br> <br>
