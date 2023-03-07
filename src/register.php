@@ -1,62 +1,82 @@
 <?php
-    include('ConnBD.php');
-    $conn = ConnBD();
+include('ConnBD.php');
+$conn = ConnBD();
 
-    $pseudo = $_POST['pseudo'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    $date = $_POST['DATE'];
-    $pays = $_POST['pays'];
-    $region = $_POST['region'];
-    $codePostal = $_POST['codePostal'];
-    $adresse = $_POST['adresse'];
-    $codeCaptcha = $_POST['codeCaptcha'];
 
-    if (empty($email) || empty($password) || empty($pseudo) || empty($date) || empty($pays) || empty($region) || empty($codePostal) || empty($adresse) || empty($codeCaptcha)) { // Si l'email ou le mot de passe est vide, on redirige vers la page de connexion
-        header('Location: connexion.html');
-    }
-    else {
+
+$pseudo = $_POST['pseudo'];
+$pseudo = strip_tags($pseudo);
+$email = $_POST['email'];
+$email = strip_tags($email);
+$password = $_POST['password'];
+$password = strip_tags($password);
+$confirm_password = $_POST['confirm_password'];
+$confirm_password = strip_tags($confirm_password);
+$date = $_POST['DATE'];
+$date = strip_tags($date);
+$pays = $_POST['pays'];
+$pays = strip_tags($pays);
+$region = $_POST['region'];
+$region = strip_tags($region);
+$codePostal = $_POST['codePostal'];
+$codePostal = strip_tags($codePostal);
+$adresse = $_POST['adresse'];
+$adresse = strip_tags($adresse);
+$codeCaptcha = $_POST['codeCaptcha'];
+$codeCaptcha = strip_tags($codeCaptcha);
+
+if (empty($email) || empty($password) || empty($pseudo) || empty($date) || empty($pays) || empty($region) || empty($codePostal) || empty($adresse) || empty($codeCaptcha)) { // Si l'email ou le mot de passe est vide, on redirige vers la page de connexion
+    header('Location: connexion.html');
+} else {
+    if (isset($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha']) {
+
+
         // requête qui affiche le nombre d'utilisateur dans la base de données en PDO
         $query = $conn->query("SELECT COUNT(*) FROM Utilisateur");
 
         // converti le contenu de $query en number
         $nombreUti = $query->fetchColumn();
-
-        // Préfixe de l'ID utilisateur
-        define('ID_PREFIX', 'a00');
-        $idUti = ID_PREFIX . $nombreUti;
-        // $idUti = a00 + le nombre d'utilisateur dans la base de données
-        //$idUti = "a00" . $nombreUti;
+        $idUti = $nombreUti + 1;
 
         // convertir $date en DATE SQL
         $date = date('Y-m-d', strtotime($date));
+        //var_dump($date);
 
         // définir la variable suspecte à 0
         $suspecte = 0;
-        
 
-        if ($password == $confirm_password){
+        if ($password == $confirm_password) {
+
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO Utilisateur (idIti, pseudo, mail, mdp, dateNaissance, pays, region, codePostal, adresse, suspecte) VALUES (:idUti, :pseudo, :mail, :mdp, :dateNaissance, :pays, :region, :codePostal, :adresse, :suspecte)");
-            $stmt->bindParam(':idUti', $idUti);
-            $stmt->bindParam(':pseudo', $pseudo);
-            $stmt->bindParam(':mail', $email);
-            $stmt->bindParam(':mdp', $hash);
-            $stmt->bindParam(':dateNaissance', $date);
-            $stmt->bindParam(':pays', $pays);
-            $stmt->bindParam(':region', $region);
-            $stmt->bindParam(':codePostal', $codePostal);
-            $stmt->bindParam(':adresse', $adresse);
-            $stmt->bindParam(':suspecte', $suspecte);
-            $stmt->execute();
+
+            $sth = $conn->prepare("INSERT INTO Utilisateur (idUti, pseudo, mail, mdp, dateNaiss, pays, region, codePostal, adresse, suspecte) 
+            VALUES (:idUti, :pseudo, :mail, :mdp, :dateNaiss, :pays, :region, :codePostal, :adresse, :suspecte);");
+
+            $sth->execute(
+                array(
+                    ':idUti' => $idUti,
+                    ':pseudo' => $pseudo,
+                    ':mail' => $email,
+                    ':mdp' => $hash,
+                    ':dateNaiss' => $date,
+                    ':pays' => $pays,
+                    ':region' => $region,
+                    ':codePostal' => $codePostal,
+                    ':adresse' => $adresse,
+                    ':suspecte' => $suspecte
+                )
+            );
+
             $conn = null;
             header('Location: index.php');
-        }
-        else{
+
+        } else {
             header('Location: inscription.html');
-            exit();
+        }
     }
+    else {
+        header("Location: inscription.html");
     }
+}
 
 ?>
