@@ -2,8 +2,6 @@
 include('ConnBD.php');
 $conn = ConnBD();
 
-
-
 $pseudo = $_POST['pseudo'];
 $pseudo = strip_tags($pseudo);
 $email = $_POST['email'];
@@ -30,7 +28,6 @@ if (empty($email) || empty($password) || empty($pseudo) || empty($date) || empty
 } else {
     if (isset($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha']) {
 
-
         // requête qui affiche le nombre d'utilisateur dans la base de données en PDO
         $query = $conn->query("SELECT COUNT(*) FROM Utilisateur");
 
@@ -45,36 +42,54 @@ if (empty($email) || empty($password) || empty($pseudo) || empty($date) || empty
         // définir la variable suspecte à 0
         $suspecte = 0;
 
-        if ($password == $confirm_password) {
+        // regarde s'il existe un mail ou pseudo déjà associé à un utilisateur
+        $stmt = $conn->prepare("SELECT * FROM Utilisateur WHERE mail = :mail");
+        // On lie les données envoyées à la requête
+        $stmt->bindParam(':mail', $email);
+        // On exécute la requête
+        $stmt->execute();
+        // On récupère les résultats de la requête
+        $mailExist = $stmt->fetch();
 
-            $hash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("SELECT * FROM Utilisateur WHERE pseudo = :pseudo");
+        // On lie les données envoyées à la requête
+        $stmt->bindParam(':pseudo', $pseudo);
+        // On exécute la requête
+        $stmt->execute();
+        // On récupère les résultats de la requête
+        $pseudoExist = $stmt->fetch();
 
-            $sth = $conn->prepare("INSERT INTO Utilisateur (idUti, pseudo, mail, mdp, dateNaiss, pays, region, codePostal, adresse, suspecte) 
-            VALUES (:idUti, :pseudo, :mail, :mdp, :dateNaiss, :pays, :region, :codePostal, :adresse, :suspecte);");
-
-            $sth->execute(
-                array(
-                    ':idUti' => $idUti,
-                    ':pseudo' => $pseudo,
-                    ':mail' => $email,
-                    ':mdp' => $hash,
-                    ':dateNaiss' => $date,
-                    ':pays' => $pays,
-                    ':region' => $region,
-                    ':codePostal' => $codePostal,
-                    ':adresse' => $adresse,
-                    ':suspecte' => $suspecte
-                )
-            );
-
-            $conn = null;
-            header('Location: index.php');
-
-        } else {
+        if (($mailExist == true) || ($pseudoExist == true)) {
             header('Location: inscription.html');
+        } else {
+            if ($password == $confirm_password) {
+
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $sth = $conn->prepare("INSERT INTO Utilisateur (idUti, pseudo, mail, mdp, dateNaiss, pays, region, codePostal, adresse, suspecte) 
+                VALUES (:idUti, :pseudo, :mail, :mdp, :dateNaiss, :pays, :region, :codePostal, :adresse, :suspecte);");
+                $sth->execute(
+                array(
+                ':idUti' => $idUti,
+                ':pseudo' => $pseudo,
+                ':mail' => $email,
+                ':mdp' => $hash,
+                ':dateNaiss' => $date,
+                ':pays' => $pays,
+                ':region' => $region,
+                ':codePostal' => $codePostal,
+                ':adresse' => $adresse,
+                ':suspecte' => $suspecte
+                )
+                );
+                $conn = null;
+                header('Location: index.php');
+
+            } else {
+                header('Location: inscription.html');
+            }
         }
-    }
-    else {
+
+    } else {
         header("Location: inscription.html");
     }
 }
