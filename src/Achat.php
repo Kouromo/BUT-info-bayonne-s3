@@ -83,7 +83,7 @@ echo breadcrumbs();
                 $results = $result->fetch(); //$results = mysqli_fetch_array($result, MYSQLI_BOTH);
 
                 // On initialise une variable image qui sera le chemin d'accès à l'image correspondant à l'id
-                $image = 'Images/' . trim($results[3]) . '.jpg';
+                $image = 'images/' . trim($results[3]) . '.jpg';
 
                 // Vérification si une variable nommée $image existe, et si c'est le cas, affiche une image
                 if(isset($image)){
