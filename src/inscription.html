@@ -27,28 +27,28 @@
       <!-- Formulaire d'inscription -->
       <form action="register.php" method="post">
         <h2>Inscription</h2><hr>
-        <label for="pseudo">Pseudo * : </label>  
-        <input type="text" name="pseudo" placeholder="Votre pseudo" required>
-        <label for="email">Email * : </label>  
-        <input type="email" name="email" placeholder="Votre adresse email" required>
-        <label for="password">Mot de passe * : </label>  
-        <input type="password" name="password" placeholder="Votre mot de passe" required>
-        <input type="password" name="confirm_password" placeholder="Confirmer votre mot de passe" required>
-        <label for="DATE">Date de naissance * : </label>       
-        <input type="date" id="DATE" name="DATE" onclick="refresh_part_of_page()" required>
-        <label for="pays">Pays * : </label>  
-        <input type="text" name="pays" placeholder="Votre pays" required>
-        <label for="region">Région * : </label>  
-        <input type="text" name="region" placeholder="Votre région" required>
-        <label for="codePostal">Code Postal * : </label>  
-        <input type="text" name="codePostal" placeholder="Votre code postal" required>
-        <label for="adresse">Adresse * : </label>  
-        <input type="text" name="adresse" placeholder="Votre adresse" required>
+        <span>Pseudo : </span>  
+        <input type="text" name="pseudo" placeholder="Votre pseudo">
+        <span>Email : </span>  
+        <input type="email" name="email" placeholder="Votre adresse email">
+        <span>Mot de passe : </span>  
+        <input type="password" name="password" placeholder="Votre mot de passe">
+        <input type="password" name="confirm_password" placeholder="Confirmer votre mot de passe">
+        <span>Date de naissance : </span>       
+        <input type="date" id="DATE" name="DATE" onclick="refresh_part_of_page()"  >
+        <span>Pays : </span>  
+        <input type="text" name="pays" placeholder="Votre pays">
+        <span>Région : </span>  
+        <input type="text" name="region" placeholder="Votre région">
+        <span>Code Postal : </span>  
+        <input type="text" name="codePostal" placeholder="Votre code postal">
+        <span>Adresse : </span>  
+        <input type="text" name="adresse" placeholder="Votre adresse">
         <section id ="VerifCaptcha">
-          <label for="codeCaptcha">Vérification * :</label>
+          <span>Vérification :</span>
           <img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img>
           <input type="button" value="Refresh Captcha" onClick="location.href=location.href">
-          <input type="txt" name="codeCaptcha" placeholder="Code du Captcha" required>
+          <input type="txt" name="codeCaptcha" placeholder="Code du Captcha">
         </section>
         <input type="submit" value="S'inscrire">
         <a href = "connexion.html">Déjà un compte ?</a>
