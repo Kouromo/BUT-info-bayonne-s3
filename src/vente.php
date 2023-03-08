@@ -79,9 +79,44 @@
     </head>
 
     <body>
-        <header>
-            <button>Vendre ses billets</button>
-            <i class="fa-solid fa-user"></i>
+    <header>
+            <section id = "headGauche">
+                <?php
+                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                    if (!isset($id)) {
+                        echo '<button><a href="connexion.html">Vendre ses billets</a></button>';
+                    } else {
+                        echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</a></button>';
+                    }
+                ?>
+            </section>
+            <section id="headDroite">
+                <div>
+                    <?php
+                        if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
+                            echo '<a href="connexion.html">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">Se connecter</label>';
+                            echo '</a>';
+                        } else { // Utilisateur connecté
+                            $idUtilisateur = $_SESSION['user_id'];
+
+                            $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
+                            // On lie les données envoyées à la requête
+                            $stmt->bindParam(':idUti', $idUtilisateur);
+                            // On exécute la requête
+                            $stmt->execute();
+                            // On récupère les résultats de la requête
+                            $pseudoUser = $stmt->fetch();
+
+                            echo '<a href="#">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
+            </section>
         </header>
 
         <main>

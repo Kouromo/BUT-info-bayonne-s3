@@ -33,7 +33,7 @@
 
 
     <body>
-    <header>
+        <header>
             <section id = "headGauche">
                 <?php
                     // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente

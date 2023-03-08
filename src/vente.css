@@ -1,15 +1,35 @@
-body {
-    font-family: Arial, sans-serif;
+/*Header */
+body{
     margin: 0;
     padding: 0;
+    text-decoration: none;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    /*justify-content:left;*/
     align-items: center;
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 10px 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#headGauche {
+    grid-column: 1;
+    display: inline-flex;
+    column-gap: 30px;
+}
+
+#headDroite {
+    grid-column: 2;
+    justify-self: right;
 }
 
 header button {
@@ -19,13 +39,6 @@ header button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-header input[type="text"] {
-    padding: 12px 20px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-right: 20px;
 }
 
 .fa-user {
@@ -51,14 +64,13 @@ label {
 
 input[type="text"],
 input[type="number"],
-input[type="date"],
-input[type="radio"] {
+input[type="date"] {
     padding: 5px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: none;
     background-color: #e6e6e6;
-    width: 300px;
+    width: 20%;
 }
 
 input[type="submit"] {
@@ -78,18 +90,38 @@ input[type="submit"]:hover {
 #genre {
     display: inline-flex;
     flex-direction: row;
+    align-items: center; /* pour centrer verticalement les boutons radio */
     margin-bottom: 10px;
-    }
-
+}
+    
 #genre label {
-    margin-right: 10px;
+    margin-right: 5px; /* pour ajouter un petit espace entre le texte et le bouton radio */
+    display: inline-block;
+    vertical-align: middle; /* pour aligner le texte avec le bouton radio */
+    }
+    
+input[type="radio"] {
+    margin-right: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #e6e6e6;
+    width: 150px;
+    padding: 0; /* pour supprimer le padding */
+    margin-bottom: 0; /* pour supprimer la marge inférieure */
 }
 
 #genre input[type="radio"] {
-    margin-right: 5px;
-}
+    margin-left: 25px; /* ajout d'une marge à droite pour l'espace */
+    border-radius: 5px;
+    border: none;
+    background-color: #e6e6e6;
+    width: auto;
+    padding: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+    }
 
-/* modifie pour que les boutons radio et les labels soient plus proches */
-#genre input[type="radio"] + label {
-    margin-right: 20px;
-}
+
+
+
+/* modifie pour que les boutons radio et leurs texte soit plus proche */
