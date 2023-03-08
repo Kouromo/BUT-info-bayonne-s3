@@ -108,7 +108,14 @@
                     global $page_title;
                     $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
 ///////////////////////////////////////////////////////////////////// $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-                    $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/'; // Changer cette ligne avec celle d'avant quand on passera sur le vrai site
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+    // Le site est accessible via HTTPS
+    $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+} else {
+    // Le site est accessible via HTTP ou en local
+    $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+}
+
                     $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
                    
                     $num_breadcrumbs = count($breadcrumbs);
