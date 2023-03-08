@@ -33,40 +33,75 @@
 
 
     <body>
-        <header>
-            <button>Vendre ses billets</button>
-            <i class="fa-solid fa-user"></i>
+    <header>
+            <section id = "headGauche">
+                <?php
+                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                    if (!isset($id)) {
+                        echo '<button><a href="connexion.html">Vendre ses billets</a></button>';
+                    } else {
+                        echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</a></button>';
+                    }
+                ?>
+            </section>
+            <section id="headDroite">
+                <div>
+                    <?php
+                        if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
+                            echo '<a href="connexion.html">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">Se connecter</label>';
+                            echo '</a>';
+                        } else { // Utilisateur connecté
+                            $idUtilisateur = $_SESSION['user_id'];
+
+                            $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
+                            // On lie les données envoyées à la requête
+                            $stmt->bindParam(':idUti', $idUtilisateur);
+                            // On exécute la requête
+                            $stmt->execute();
+                            // On récupère les résultats de la requête
+                            $pseudoUser = $stmt->fetch();
+
+                            echo '<a href="#">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
+            </section>
         </header>
         <?php
-  function breadcrumbs($home = 'Home') {
-    global $page_title;
-    $breadcrumb  = '<div class="breadcrumb-container"><div class="container"><ol class="breadcrumb">';
-    $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'].'/';
-    $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-    $breadcrumb .= '<li><i class="fa fa-home"></i><a href="' . $root_domain . '" title="Home Page"><span>' . $home . '</span></a></li>';
-    $num_breadcrumbs = count($breadcrumbs);
-    $i = 1;
-    foreach ($breadcrumbs as $crumb) {
-        $link = ucwords(str_replace(array(".php","-","_"), array(""," "," "), $crumb));
-        $root_domain .=  $crumb . '/';
-        if ($i == $num_breadcrumbs) {
-            $breadcrumb .= '<li><span>' . $link . '</span></li>';
-        } else {
-            $breadcrumb .= '<li><a href="'. $root_domain .'" title="'.$page_title.'"><span>' . $link . '</span></a></li>';
-        }
-        $i++;
-    }
-    $breadcrumb .= '</ol></div></div>';
-    return $breadcrumb;
-}
-echo breadcrumbs();         
-            
+            function breadcrumbs($home = 'Home') {
+                global $page_title;
+                $breadcrumb  = '<div class="breadcrumb-container"><div class="container"><ol class="breadcrumb">';
+///////////////////////////////////////////////////////////////////// $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+                $root_domain = ""; // Changer cette ligne avec celle d'avant quand on passera sur le vrai site
+                $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+                $breadcrumb .= '<li><i class="fa fa-home"></i><a href="' . $root_domain . '" title="Home Page"><span>' . $home . '</span></a></li>';
+                $num_breadcrumbs = count($breadcrumbs);
+                $i = 1;
+                foreach ($breadcrumbs as $crumb) {
+                    $link = ucwords(str_replace(array(".php","-","_"), array(""," "," "), $crumb));
+                    $root_domain .=  $crumb . '/';
+                    if ($i == $num_breadcrumbs) {
+                        $breadcrumb .= '<li><span>' . $link . '</span></li>';
+                    } else {
+                        $breadcrumb .= '<li><a href="'. $root_domain .'" title="'.$page_title.'"><span>' . $link . '</span></a></li>';
+                    }
+                    $i++;
+                }
+                $breadcrumb .= '</ol></div></div>';
+                return $breadcrumb;
+            }
+            echo breadcrumbs();         
+        ?>
 
-?>
         <main>
             <!-- Contenu de la page -->
             <?php
-                echo "<section>";
+                echo "<section id='sectionBillet'>";
                 // id de test pour vérifier si cela fonctionne
                 
                 //$id = $_SESSION['id'];
@@ -117,6 +152,8 @@ echo breadcrumbs();
                 
                 if (is_numeric(trim($resultsAvis[0]))) {
                     echo "<div class='icon-container'>";
+                    // Fais en sorte que resultsAvis[0] soit arrondi à 0.5 près
+                    $resultsAvis[0] = round($resultsAvis[0] * 2) / 2;
                     for ($i=1; $i <= trim($resultsAvis[0]); $i++) { 
                         echo "<i class='fa-solid fa-star'></i>";
                     }

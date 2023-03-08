@@ -97,7 +97,9 @@
                 echo '<input type="text" name="categorie" id="categorie" placeholder="exemple: RAP Français" required>';
                 
                 echo '<label for="date">Date</label>';
-                echo '<input type="date" name="date" id="date" min="echo date("Y-m-d");" required>';
+                $dayDate = date("Y-m-d");
+                echo '<input type="date" name="date" id="date" min="' . $dayDate . '" required>';
+
 
                 echo '<label for="quantite">Quantité</label>';
                 echo '<input type="number" name="quantite" id="quantite" required>';
