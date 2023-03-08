@@ -21,6 +21,13 @@
     $festivals = array();
     $theatre = array();
     $autre = array();
+
+
+    // si variable de session user_id existe, on la stocke dans $id
+    if (isset($_SESSION['user_id'])) {
+        $id = $_SESSION['user_id'];
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -47,11 +54,20 @@
 
 <body>
     <header>
-        <section id="headGauche">
-            <button>Vendre ses billets</button>
+        <section id = "headGauche">
+            <?php
+                // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                if (!isset($id)) {
+                    echo '<button><a href="connexion.html">Vendre ses billets</a></button>';
+                } else {
+                    echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</button>';
+                }
+            ?>
+
             <div>
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="searchbar" onkeyup="search_ticket()" type="text" name="search" placeholder="Rechercher">
+                <input id="searchbar" onkeyup="search_ticket()" type="text"
+                name="search" placeholder="Rechercher">
             </div>
         </section>
         <section id="headDroite">
@@ -197,7 +213,6 @@
             echo '</a>';
             echo '</div>';
         }
-
 
         echo '</div>';
 

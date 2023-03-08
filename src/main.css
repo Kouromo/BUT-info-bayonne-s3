@@ -2,6 +2,7 @@
 body{
     margin: 0;
     padding: 0;
+    text-decoration: none;
 }
 
 header {
@@ -12,6 +13,12 @@ header {
     padding: 10px 20px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 #headGauche {
