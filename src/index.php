@@ -22,10 +22,12 @@
     $theatre = array();
     $autre = array();
 
+
     // si variable de session user_id existe, on la stocke dans $id
     if (isset($_SESSION['user_id'])) {
         $id = $_SESSION['user_id'];
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -211,7 +213,6 @@
             echo '</a>';
             echo '</div>';
         }
-
 
         echo '</div>';
 
