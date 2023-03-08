@@ -90,7 +90,7 @@
                 echo '<label for="titre">Titre</label>';
                 echo '<input type="text" name="titre" id="titre" required>';
 
-                echo '<label for="description">description</label>';
+                echo '<label for="description">Description</label>';
                 echo '<input type="text" name="description" id="description" required>';
 
                 echo '<label for="categorie">Catégorie</label>';
