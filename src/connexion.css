@@ -88,6 +88,14 @@ header {
     justify-self: right;
 }
 
+
+#refresh:hover 
+{
+  /*couleur d'arrière plan gris foncé*/
+  background-color: #5353538f;
+  color: white;
+}
+
 header button {
     background-color: #4a0087ff;
     color: white;
