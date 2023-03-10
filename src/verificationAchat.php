@@ -18,20 +18,43 @@ if (isset($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha'
             // On exécute la requête
             $stmt->execute();
 
-            $stmt = $conn->prepare("SELECT * FROM Billet WHERE id = :id AND quantite = 0");
+            
+            $stmt = $conn->prepare("DELETE FROM Billet WHERE id = :id AND quantite = 0");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            // si la requête retourne un résultat, on supprime l'article de la base de données
-            if ($stmt->rowCount() > 0) {
-                $stmt = $conn->prepare("DELETE FROM Billet WHERE id = :id");
-                $stmt->bindParam(':id', $id);
-                $stmt->execute();
-            }
-            // On supprime le panier
-            unset($_SESSION['panier']);
-            header('Location: index.php');
+
+            // Insère le billet dans la table vente
+            //$date = date("Y-m-d");
+
+            // récupérer le nombre de billet vendu
+            //$query = $conn->query("SELECT COUNT(*) FROM Vente");
+            // prépare la requête qui affiche le nombre de billet vendu dans la base de données en PDO
+            /*$query = $conn->prepare("SELECT COUNT(*) FROM Vente");
+            $query->execute();
+
+            // converti le contenu de $query en number
+            
+            $idVente = ($query->fetchColumn()) + 1;
+            var_dump($idVente);
+
+            //insertion dans la table Vente
+            $stmt = $conn->prepare("INSERT INTO Vente (idVente, dateVente, prix, idBillet, idAcheteur) VALUES (:idVente, :dateVente, :prix, :idBillet, :idAcheteur)");
+            $stmt->bindParam(':idVente', $idVente);
+            $stmt->bindParam(':dateVente', $date);
+            $stmt->bindParam(':prix', $article['prix']);
+            $stmt->bindParam(':idBillet', $id);
+            $stmt->bindParam(':idAcheteur', $_SESSION['user_id']);
+            $stmt->execute();*/
+
+
+            // supprime le billet en question de la Base de donnée si la quantitité est égale à 0
+
             
         }
+        // On supprime le panier
+        unset($_SESSION['panier']);
+        //header('Location: index.php');
+        
 
     } else {
         // Si la date d'expiration est inférieure à la date actuelle, on redirige vers la page de connexion
