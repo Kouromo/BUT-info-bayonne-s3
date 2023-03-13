@@ -113,8 +113,14 @@ echo '</ol>';
                 echo '<label for="csv">Entrez votre CSV :</label><br>';
                 echo '<input type="text" name="csv" id="csv" maxlength="3"><br>';
                 echo '<label for="dateExpiration">Date d\'expiration :</label><br>';
-                echo '<input type="date" name="dateExpiration" id="dateExpiration"><br>';
+                echo '<input type="date" name="dateExpiration" id="dateExpiration"><br><br>';
                 echo '</section>';
+                echo '<div class="verifCaptcha">';
+                echo '<label for="codeCaptcha">Vérification * :</label><br>';
+                echo '<img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img><br>';
+                echo '<input type="button" value="Refresh Captcha" onClick="location.href=location.href"><br>';
+                echo '<input type="txt" name="codeCaptcha" placeholder="Code du Captcha" maxlength="10" required>';
+                echo '</div>';
                 echo '<input type="submit" value="Envoyer">';
                 echo '</form>';
 
