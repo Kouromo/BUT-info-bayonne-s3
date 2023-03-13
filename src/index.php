@@ -4,7 +4,7 @@
     $conn = ConnBD();
 
     // Requête pour récupérer tous les billets
-    $query = "SELECT * FROM Billet;";
+    $query = "SELECT * FROM Billet WHERE quantite > 0;";
     $result = $conn->query($query); //$result = mysqli_query($conn, $query);
     
     // Stockage des billets dans un tableau PHP
