@@ -106,7 +106,7 @@
                 {
                     global $page_title;
                     $breadcrumb = '<div class="breadcrumb-container"><div class="container"><ol class="breadcrumb">';
-///////////////////////////////////////////////////////////////////// $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+                    // $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
                     $root_domain = ""; // Changer cette ligne avec celle d'avant quand on passera sur le vrai site
                     $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
                     $breadcrumb .= '<li><i class="fa fa-home"></i><a href="' . $root_domain . '" title="Home Page"><p>' . $homes . '</p></a></li>';
@@ -187,63 +187,60 @@
                 echo '<h2>Sports</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($sports as $sport) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $sport['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/sport.jpg"> <br>';
                     echo '<span style="font-size: smaller;">' . $sport['libelle'] . '</span><br>';
-                    echo '</a>';
                     echo '</article>';
+                    echo '</a>';
                 }
                 echo '</div>';
 
                 echo '<h2>Concerts</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($concerts as $concert) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $concert['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/concert.jpg"> <br>';
                     echo '<span style="font-size: smaller;">' . $concert['libelle'] . '</span><br>';
-                    echo '</a>';
                     echo '</article>';
+                    echo '</a>';
                 }
-
                 echo '</div>';
 
                 echo '<h2>Festivals</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($festivals as $festival) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $festival['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/festival.jpg"> <br>';
                     echo '<span style="font-size: smaller;">' . $festival['libelle'] . '</span><br>';
-                    echo '</a>';
                     echo '</article>';
+                    echo '</a>';
                 }
-
                 echo '</div>';
 
                 echo '<h2>Theatre</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($theatre as $theatres) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $theatres['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/theatre.jpg"> <br>';
                     echo '<span style="font-size: smaller;">' . $theatres['libelle'] . '</span><br>';
-                    echo '</a>';
                     echo '</article>';
+                    echo '</a>';
                 }
-
                 echo '</div>';
 
                 echo '<h2>Autre</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($autre as $autres) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $autres['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/autre.jpg"> <br>';
                     echo '<span style="font-size: smaller;">' . $autres['libelle'] . '</span><br>';
-                    echo '</a>';
                     echo '</article>';
+                    echo '</a>';
                 }
                 echo '</div>';
 

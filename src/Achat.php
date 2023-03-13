@@ -4,6 +4,11 @@
 
     $id = $_GET['id'];
 
+    // si variable de session user_id existe, on la stocke dans $id
+    if (isset($_SESSION['user_id'])) {
+        $idUti = $_SESSION['user_id'];
+    }
+
     // Vérifie si la variable de session "panier" existe
     if (!isset($_SESSION['panier'])) {
         // Si elle n'existe pas, on la crée et on lui affecte une valeur vide
@@ -37,10 +42,10 @@
             <section id = "headGauche">
                 <?php
                     // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
-                    if (!isset($id)) {
+                    if (!isset($idUti)) {
                         echo '<button><a href="connexion.html">Vendre ses billets</a></button>';
                     } else {
-                        echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</a></button>';
+                        echo '<button><a href="vente.php?id=' . $idUti . '">Vendre ses billets</a></button>';
                     }
                 ?>
             </section>
