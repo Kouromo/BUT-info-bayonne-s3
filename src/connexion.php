@@ -2,11 +2,11 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   include('ConnBD.php');
   $conn = ConnBD();
-  if (isset($_POST['email']) && isset($_POST['password']) && !($_POST['email'] == '') && !($_POST['password'] == '')) {
+  if ((!empty($_POST['email'])) && !(empty($_POST['password']))) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if (isset($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha']) {
+    if (!empty($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha']) {
       // Si l'utilisateur n'existe pas, on redirige vers la page de connexion
       // On prépare la requête pour vérifier l'existence de l'utilisateur dans la base de données
       $stmt = $conn->prepare("SELECT * FROM Utilisateur WHERE mail = :mail");
@@ -17,14 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // On récupère les résultats de la requête
       $user = $stmt->fetch();
       if (!$user) {
+        $conn = null;
         header('Location: connexion.php?error=user'); // Utilisateur inexistant
       } else {
         // On vérifie que le mot de passe envoyé correspond au mot de passe stocké dans la base de données
         if (password_verify($password, $user['mdp'])) {
           $_SESSION['user_id'] = $user['idUti'];
           $conn = null;
-          header('Location: index.php');
-          exit;
+          header('Location: index.php?success=inscription'); // Connexion réussie
         } else {
           $conn = null;
           header('Location: connexion.php?error=password'); // Mot de passe incorrect
@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       header('Location: connexion.php?error=captcha'); // Captcha non valide
     }
   } else {
+    $conn = null;
     header('Location: connexion.php?error=empty');
   }
 }
