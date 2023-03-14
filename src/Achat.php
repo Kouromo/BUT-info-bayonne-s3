@@ -38,59 +38,54 @@
             <i class="fa-solid fa-user"></i>
         </header>
         <?php
-  function breadcrumbs($homes = 'Home')
-  {
-      global $page_title;
-      $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
-  
-      if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-          // Le site est accessible via HTTPS
-          $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
-      } else {
-          // Le site est accessible via HTTP ou en local
-          $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-      }
-  
-      $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-      $current_path = '';
-  
-      $num_breadcrumbs = count($breadcrumbs);
-      $i = 1;
-      foreach ($breadcrumbs as $crumb) {
-          $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
-          $linkPrecedent = "Accueil";
-          $current_path .= $crumb . '/';
-          if ($i == $num_breadcrumbs) {
-           
-              $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
-              
-          } else {
+            function breadcrumbs($homes = 'Home')
+            {
+                global $page_title;
+                $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
+            
+                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+                    // Le site est accessible via HTTPS
+                    $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+                } else {
+                    // Le site est accessible via HTTP ou en local
+                    $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+                }
+            
+                $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+                $current_path = '';
+            
+                $num_breadcrumbs = count($breadcrumbs);
+                $i = 1;
+                foreach ($breadcrumbs as $crumb) {
+                    $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+                    $linkPrecedent = "Accueil";
+                    $current_path .= $crumb . '/';
+                    if ($i == $num_breadcrumbs) {
+                    
+                        $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
+                        
+                    } else {
 
-             if ($i == $num_breadcrumbs-1) {
-                $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
-             }
-             else{
-              $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
-             }
-          }
-          $i++;
-      }
-  
-      $breadcrumb .= '</div></div></div>';
-      return $breadcrumb;
-  }
-  echo breadcrumbs();
-  
-  
-  
-  
-?>
-            <script>
-                
-                function send_billet()
-                {
-                let idBillet = document.getElementById('panier').dataset.id;
-                let xhr = new XMLHttpRequest();
+                        if ($i == $num_breadcrumbs-1) {
+                            $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                        }
+                        else{
+                        $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                        }
+                    }
+                    $i++;
+                }
+            
+                $breadcrumb .= '</div></div></div>';
+                return $breadcrumb;
+            }
+            echo breadcrumbs();
+        ?>
+        <script>
+            function send_billet()
+            {
+                var idBillet = document.getElementById('panier').dataset.id;
+                var xhr = new XMLHttpRequest();
                 console.log(idBillet);
 
                 // Définir l'URL et la méthode de la requête
@@ -104,21 +99,19 @@
 
                 // Définir la fonction de rappel à exécuter lorsque la requête est terminée
                 xhr.onload = function() {
-                if (xhr.status === 200) {
-                    // La requête s'est terminée avec succès
-                    console.log('Billet ajouté au panier !');
-                } else {
-                    // La requête a échoué
-                    console.log('Erreur lors de l\'ajout du billet au panier.');
-                }
+                    if (xhr.status === 200) {
+                        // La requête s'est terminée avec succès
+                        console.log('Billet ajouté au panier !');
+                    } else {
+                        // La requête a échoué
+                        console.log('Erreur lors de l\'ajout du billet au panier.');
+                    }
                 };
 
                 // Envoyer la requête avec l'ID du billet en tant que paramètre
                 xhr.send('id' + idBillet);
-                }
-            </script>
-  
-
+            }
+        </script>
 
         <main>
             <!-- Contenu de la page -->
