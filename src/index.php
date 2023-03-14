@@ -62,7 +62,7 @@
                     }
                 ?>
 
-                <div>
+                <div id = "recherche">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input id="searchbar" onkeyup="search_ticket()" type="text"
                     name="search" placeholder="Rechercher">
@@ -126,6 +126,18 @@
                     return $breadcrumb;
                 }
                 echo breadcrumbs();
+
+                // Affichage de la bannière de succès
+                if (isset($_GET['success'])){
+                    echo '<div id="banniereSuccess" role="alert">';
+                    if ($_GET['success'] == 'connexion'){
+                        echo '<p class="success">Bon retour !</p>';
+                    }
+                    else if ($_GET['success'] == 'inscription'){
+                        echo '<p class="success">Bienvenue, inscription réussie !</p>';
+                    }
+                    echo '</div>';
+                }
             ?>
 
             <form>
