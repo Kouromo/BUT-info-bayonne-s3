@@ -54,9 +54,9 @@
         <header>
             <section id = "headGauche">
                 <?php
-                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                    // si je suis pas connecté, renvoie à la page connexion.php, sinon renvoie à la page de vente
                     if (!isset($id)) {
-                        echo '<button><a href="connexion.html">Vendre ses billets</a></button>';
+                        echo '<button><a href="connexion.php">Vendre ses billets</a></button>';
                     } else {
                         echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</a></button>';
                     }
@@ -72,7 +72,7 @@
                 <div>
                     <?php
                     if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
-                        echo '<a href="connexion.html">';
+                        echo '<a href="connexion.php">';
                         echo '<i class="fa-solid fa-user"></i>';
                         echo '<label for="user">Se connecter</label>';
                         echo '</a>';
