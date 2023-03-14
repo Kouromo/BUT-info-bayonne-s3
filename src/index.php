@@ -90,6 +90,7 @@
                         echo '<a href="#">';
                         echo '<i class="fa-solid fa-user"></i>';
                         echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                        echo '<button><a href="panier.php?id=' . $id . '">panier</a></button>';
                         echo '</a>';
                     }
                     ?>
@@ -122,10 +123,13 @@
            $i = 1;
            foreach ($breadcrumbs as $crumb) {
                $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+               $linkActu = "Accueil";
                $current_path .= $crumb . '/';
                if ($i == $num_breadcrumbs) {
-                   $breadcrumb .= '<a class="breadcrumb-item">' . $link . '</a>';
+                   $breadcrumb .= '<a class="breadcrumb-item">' .$linkActu. '</a>';
+                   
                } else {
+               
                    $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
                }
                $i++;
@@ -134,8 +138,7 @@
            $breadcrumb .= '</div></div></div>';
            return $breadcrumb;
        }
-       $_SESSION['breadcrumbs'] = breadcrumbs();
-       echo '<p>' . $_SESSION['breadcrumbs'] . '</p>';
+       echo breadcrumbs();
        
 
             ?>

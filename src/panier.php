@@ -28,6 +28,7 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="panier.css" />
         <script src="https://kit.fontawesome.com/7c2235d2ba.js" crossorigin="anonymous"></script>
+        <script src="ajout_panier.js"></script>
         <title>Panier</title>
     </head>
     <body>
@@ -56,11 +57,20 @@
           $i = 1;
           foreach ($breadcrumbs as $crumb) {
               $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+              $linkPrecedent = "Accueil";
               $current_path .= $crumb . '/';
               if ($i == $num_breadcrumbs) {
-                  $breadcrumb .= '<a class="breadcrumb-item">' . $link . '</a>';
+               
+                  $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
+                  
               } else {
+    
+                 if ($i == $num_breadcrumbs-1) {
+                    $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                 }
+                 else{
                   $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                 }
               }
               $i++;
           }
@@ -68,9 +78,7 @@
           $breadcrumb .= '</div></div></div>';
           return $breadcrumb;
       }
-      
-      echo '<p>' . $_SESSION['breadcrumbs'] . '</p>';
-      
+      echo breadcrumbs();
             ?>
 
         <?php
@@ -131,8 +139,8 @@
                 echo '</section>';
                 echo '<input type="submit" value="Envoyer">';
                 echo '</form>';
-
             }
+             
         ?>
         </main>
     </body>

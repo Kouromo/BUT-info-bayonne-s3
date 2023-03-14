@@ -58,11 +58,20 @@
       $i = 1;
       foreach ($breadcrumbs as $crumb) {
           $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+          $linkPrecedent = "Accueil";
           $current_path .= $crumb . '/';
           if ($i == $num_breadcrumbs) {
-              $breadcrumb .= '<a class="breadcrumb-item">' . $link . '</a>';
+           
+              $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
+              
           } else {
+
+             if ($i == $num_breadcrumbs-1) {
+                $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
+             }
+             else{
               $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+             }
           }
           $i++;
       }
@@ -70,18 +79,51 @@
       $breadcrumb .= '</div></div></div>';
       return $breadcrumb;
   }
-  $breadcrumbAchat = breadcrumbs();
+  echo breadcrumbs();
   
-  echo '<p>' . $_SESSION['breadcrumbs'] . '</p>';
+  
+  
   
 ?>
+            <script>
+                
+                function send_billet()
+                {
+                let idBillet = document.getElementById('panier').dataset.id;
+                let xhr = new XMLHttpRequest();
+                console.log(idBillet);
 
-            
+                // Définir l'URL et la méthode de la requête
+                xhr.open('POST', 'ajouterAuPanier.php', true);
 
-?>
+                // Définir le type de données que nous attendons en réponse
+                xhr.responseType = 'json';
+
+                // Définir le type de contenu de la requête
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                // Définir la fonction de rappel à exécuter lorsque la requête est terminée
+                xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // La requête s'est terminée avec succès
+                    console.log('Billet ajouté au panier !');
+                } else {
+                    // La requête a échoué
+                    console.log('Erreur lors de l\'ajout du billet au panier.');
+                }
+                };
+
+                // Envoyer la requête avec l'ID du billet en tant que paramètre
+                xhr.send('id' + idBillet);
+                }
+            </script>
+  
+
+
         <main>
             <!-- Contenu de la page -->
             <?php
+            
                 echo "<section>";
                 // id de test pour vérifier si cela fonctionne
                 
@@ -183,10 +225,23 @@
                 echo "</section>";
 
                 // Bouton "Ajouter au panier"
-                echo '<form action="panier.php" method="post">';
-                echo '<input type="hidden" name="id" value="' . $id . '">';
+                echo '<button class="bouton" id="panier" onclick="send_billet()" data-id="' . $id . '">truc</button>';
+
+                 
+            
+            
+                
+                echo '<form action="panier.php" method="POST">';
+                echo '<input type="hidden" name="id" value="' . $id . '">';            
                 echo '<input type="submit" value="Ajouter au panier">';
                 echo '</form>';
+
+               
+              
+
+               
+                
+
             ?>
         </main>
     </body>
