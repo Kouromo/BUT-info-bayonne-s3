@@ -9,25 +9,19 @@
  * 
  */
 
-
-
-
 include ('creationImage.php');
-
 include ('ConnBD.php');
+
 class Captcha{
 
     // ATTRIBUTS
-
     /**
     * Niveau de difficulté du Captcha
     * @var string peut prendre la valeur easy, medium ou hard
     */
     private $difficulte;
 
-
     // CONSTRUCTEURS
-
     /**
     * Constructeur de la classe Captcha demandant en paramètre le niveau de difficulté
     * @param string $diff  Difficulté du captcha, mis par défaut sur hard
@@ -35,7 +29,6 @@ class Captcha{
     public function __construct($diff = 'hard', $attempt = True)
     {
         session_start();
-
         if ($attempt == True)
         {
             ConnBD();
@@ -86,10 +79,7 @@ class Captcha{
     }
 
     // MÉTHODES USUELLES
-
     // MÉTHODES SPÉCIFIQUES
-
-
     /**
     * Procédure qui modifie la longueur du texte généré par le Captcha et le niveau de distortion en fonction de la difficulté
     * @param $diff difficulté du Captcha à définir
@@ -130,8 +120,5 @@ class Captcha{
         $bg_color = imagecolorallocate($_SESSION['image'], 255, 255, 255);
         $text_color = imagecolorallocate($_SESSION['image'], 0, 0, 0);
     }
-
-    
 }
-
 ?>

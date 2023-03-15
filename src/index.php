@@ -1,4 +1,13 @@
 <?php
+    /**
+     * @file index.php
+     * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+     * @brief Page d'accueil de Tickets'Press
+     * @details Page d'accueil de Tickets'Press où sont affichés les billets disponibles à la vente
+     * @date 2023-01-16
+     *  
+     */
+
     // Connexion à la base de données
     include('ConnBD.php');
     $conn = ConnBD();
@@ -157,7 +166,7 @@
             ?>
 
             <form>
-                <label for="date">billet disponible à partir du : </label>
+                <label for="date">Billet disponible à partir du : </label>
                 <!-- Champ pour sélectionner la date -->
                 <div>
                     <input type="date" id="dateInput" name="date" value="<?php echo date('Y-m-d'); ?>"
