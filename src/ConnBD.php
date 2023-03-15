@@ -1,12 +1,10 @@
 <?php
-    
     /**
     * @file ConnBD.php
     * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
     * @brief Prodédure qui permet de se connecter à la base de données
     * @date 2023-01-16
     */
-
 
     /**
     * Procédure qui permet la connexion à la base de donnée sur lakartxela
@@ -23,12 +21,14 @@
         // On établit la connexion en PDO pour sécurer la connexion
         $conn = new PDO("mysql:host=$servername;dbname=$bdd", $username, $password);
 
-        //if ($_SESSION['user_id'] ) //if ($_SESSION['user_id'] == null)
 
         if (isset($_SESSION['user_id']) == false)
         {
-           // L'utilisateur n'est pas connecté
-           session_start();
+            // si le fichier d'ou a été appelé se nomme get_posts.php
+            if (!(basename($_SERVER['PHP_SELF']) == 'get_posts.php'))
+            {
+                session_start();  
+            }
         }
         else
         {
@@ -41,12 +41,5 @@
         }
         
         return $conn;
-
-        //mysqli_query
-        //$conn = mysqli_connect($servername,$username,$password,$bdd);
-        // $query  = "SELECT idUti FROM Utilisateur WHERE mail = $mail;";
-        //$_SESSION['user_id'] = mysqli_query($conn, $query);
-
-    }
-    
+    } 
 ?>

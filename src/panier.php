@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ajoute un article au panier
  * @file panier.php
@@ -8,8 +9,14 @@
  */
 include('ConnBD.php');
 
+
+
+
+
+
 $conn = ConnBD();
 
+$idUtilisateur = $_SESSION['user_id'];
 // Vérifie si la variable de session "panier" existe
 if (!isset($_SESSION['panier'])) {
     // Si elle n'existe pas, on la crée et on lui affecte une valeur vide
@@ -31,53 +38,97 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
-
-<head>
+ <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="panier.css" />
     <script src="https://kit.fontawesome.com/7c2235d2ba.js" crossorigin="anonymous"></script>
     <title>Panier</title>
-</head>
+    </head>
 
-<body>
-    <header>
-        <button>Vendre ses billets</button>
-        <i class="fa-solid fa-user"></i>
-    </header>
-    <main>
+    <body>
+        <header>
+            <section id="headGauche">
+                <?php
+                echo '<button><a href="vente.php?id=' . $idUtilisateur . '">Vendre ses billets</a></button>';
+                ?>
+            </section>
+            <section id="headDroite">
+                <div>
+                    <?php
+
+                    if (isset($_GET['error'])) {
+                        echo '<div id="banniereErreur">';
+                        if ($_GET['error'] == 'date') {
+                            echo '<p class="erreur">La date d\'expiration de la carte</p>';
+                        } elseif ($_GET['error'] == 'captcha') {
+                            echo '<p class="erreur">Captcha non valide</p>';
+                        }
+                        echo '</div>';
+                    }
+
+
+
+                    $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
+                    // On lie les données envoyées à la requête
+                    $stmt->bindParam(':idUti', $idUtilisateur);
+                    // On exécute la requête
+                    $stmt->execute();
+                    // On récupère les résultats de la requête
+                    $pseudoUser = $stmt->fetch();
+
+                    echo '<a href="#">';
+                    echo '<i class="fa-solid fa-user"></i>';
+                    echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+
+                    echo '</a>';
+                    ?>
+                </div>
+            </section>
+        </header>
         <?php
+        function breadcrumbs($homes = 'Home')
+        {
+            global $page_title;
+            $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
 
-        if (isset($_GET['error'])) {
-            echo '<div id="banniereErreur">';
-            if ($_GET['error'] == 'date') {
-                echo '<p class="erreur">La date d\'expiration de la carte</p>';
-            } elseif ($_GET['error'] == 'captcha') {
-                echo '<p class="erreur">Captcha non valide</p>';
-            }
-            echo '</div>';
-        }
-
-        $docroot = "/zen/index5.php";
-        $path = ($_SERVER['REQUEST_URI']);
-        $names = explode("/", $path);
-        $trimnames = array_slice($names, 1, -1);
-        $length = count($trimnames) - 1;
-        $fixme = array(".php", "-", "myname");
-        $fixes = array("", " ", "My<strong>Name</strong>");
-        echo '<div id="breadwrap"><ol id="breadcrumb">';
-        $url = "";
-        for ($i = 2; $i <= $length; $i++) {
-            $url .= $trimnames[$i] . "/";
-            if ($i > 0 && $i != $length) {
-                echo '<li><a href="/' . $url . '">' . ucfirst(str_replace($fixme, $fixes, $trimnames[$i]) . ' ') . '</a></li>';
-            } elseif ($i == $length) {
-                echo '<li class="current">' . ucfirst(str_replace($fixme, $fixes, $trimnames[$i]) . ' ') . '</li>';
+            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+                // Le site est accessible via HTTPS
+                $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
             } else {
-                echo $trimnames[$i] = '<li><a href=' . $docroot . ' id="bread-home"><span>&nbsp;</span></a></li>';
+                // Le site est accessible via HTTP ou en local
+                $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
             }
+
+            $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+            $current_path = '';
+
+            $num_breadcrumbs = count($breadcrumbs);
+            $i = 1;
+            foreach ($breadcrumbs as $crumb) {
+                $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+                $linkPrecedent = "Accueil";
+                $current_path .= $crumb . '/';
+                if ($i == $num_breadcrumbs) {
+
+                    $breadcrumb .= '<a class="breadcrumb-item">' . $link . '</a>';
+
+                } else {
+
+                    if ($i == $num_breadcrumbs - 1) {
+                        $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $linkPrecedent . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                    } else {
+                        $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                    }
+                }
+                $i++;
+            }
+
+            $breadcrumb .= '</div></div></div>';
+            return $breadcrumb;
         }
-        echo '</ol>';
+        echo breadcrumbs();
         ?>
+
         <?php
         if (empty($_SESSION['panier'])) {
             echo "<p>Le panier est vide. Pour ajouter du contenu au panier, cliquez sur un BILLET et sélectionnez \"Ajouter au panier\".</p>";
@@ -144,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
         ?>
-    </main>
-</body>
+        </main>
+    </body>
 
 </html>

@@ -75,6 +75,8 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input id="searchbar" onkeyup="search_ticket()" type="text"
                     name="search" placeholder="Rechercher">
+                    <!-- affiche le compteur initialisé dans search_tikets.js -->
+                    <p id="counter"></p>
                 </div>
             </section>
             <section id="headDroite">
@@ -99,6 +101,7 @@
                         echo '<a href="#">';
                         echo '<i class="fa-solid fa-user"></i>';
                         echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                        echo '<button><a href="panier.php?id=' . $id . '">panier</a></button>';
                         echo '</a>';
                     }
                     ?>
@@ -114,28 +117,41 @@
                 function breadcrumbs($homes = 'Home')
                 {
                     global $page_title;
-                    $breadcrumb = '<div class="breadcrumb-container"><div class="container"><ol class="breadcrumb">';
-                    // $root_domain = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-                    $root_domain = ""; // Changer cette ligne avec celle d'avant quand on passera sur le vrai site
+                    $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
+                
+                    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+                        // Le site est accessible via HTTPS
+                        $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+                    } else {
+                        // Le site est accessible via HTTP ou en local
+                        $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+                    }
+                
                     $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-                    $breadcrumb .= '<li><i class="fa fa-home"></i><a href="' . $root_domain . '" title="Home Page"><p>' . $homes . '</p></a></li>';
+                    $current_path = '';
+                
                     $num_breadcrumbs = count($breadcrumbs);
                     $i = 1;
                     foreach ($breadcrumbs as $crumb) {
                         $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
-                        $root_domain .= $crumb . '/';
+                        $linkActu = "Accueil";
+                        $current_path .= $crumb . '/';
                         if ($i == $num_breadcrumbs) {
-                            $breadcrumb .= '<li><p>' . $link . '</p></li>';
+                            $breadcrumb .= '<a class="breadcrumb-item">' .$linkActu. '</a>';
+                            
                         } else {
-                            $breadcrumb .= '<li><a href="' . $root_domain . '" title="' . $page_title . '"><p>' . $link . '</p></a></li>';
+                        
+                            $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
                         }
                         $i++;
                     }
-                    $breadcrumb .= '</ol></div></div>';
+                
+                    $breadcrumb .= '</div></div></div>';
                     return $breadcrumb;
                 }
                 echo breadcrumbs();
-
+                
+            
                 // Affichage de la bannière de succès
                 if (isset($_GET['success'])){
                     echo '<div id="banniereSuccess" role="alert">';
@@ -169,16 +185,18 @@
                     xhr.open("GET", "get_posts.php?date=" + date, true);
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                            // Mise à jour de l'affichage des billets  
+                            // Mise à jour de l'affichage des billets
                             document.getElementById("billet").innerHTML = xhr.responseText;
+                            search_ticket();
                         }
                     };
-                    xhr.send();
+                    xhr.send(); 
                 });
             </script>
 
             <?php
                 echo "<section id='billet'>";
+                
                 foreach ($billets as $billet) {
                     $genre = trim($billet['genre']);
                     switch ($genre) {
