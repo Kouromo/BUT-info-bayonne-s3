@@ -1,0 +1,53 @@
+\hypertarget{vente_8php}{}\doxysection{src/vente.php File Reference}
+\label{vente_8php}\index{src/vente.php@{src/vente.php}}
+
+
+Fichier contenant le formulaire de vente.  
+
+
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{vente_8php_aa8a5a87b9c1a6a0819b88447cbe41877}\label{vente_8php_aa8a5a87b9c1a6a0819b88447cbe41877}} 
+{\bfseries \$conn} = \mbox{\hyperlink{_conn_b_d_8php_a2744193bfddb8598a77b183aa53733c3}{Conn\+BD}}()
+\item 
+\mbox{\Hypertarget{vente_8php_a51f58d54b2979042802e99bb78d33947}\label{vente_8php_a51f58d54b2979042802e99bb78d33947}} 
+{\bfseries \$id\+Uti} = \$\+\_\+\+SESSION\mbox{[}\textquotesingle{}user\+\_\+id\textquotesingle{}\mbox{]}
+\item 
+if(!isset(\$\+\_\+\+SESSION\mbox{[}\textquotesingle{}panier\textquotesingle{}\mbox{]})) if( \$\+\_\+\+SERVER\mbox{[} \textquotesingle{}REQUEST\+\_\+\+METHOD\textquotesingle{}\mbox{]}===\textquotesingle{}POST\textquotesingle{}) if(!isset(\$id)) \mbox{\hyperlink{vente_8php_a47e5d84557d4e2df9bb250750c99976e}{else}}
+\item 
+\mbox{\Hypertarget{vente_8php_af27a9140d5f2658693e7fd107f716449}\label{vente_8php_af27a9140d5f2658693e7fd107f716449}} 
+{\bfseries \$stmt} = \$conn-\/$>$prepare(\char`\"{}SELECT pseudo FROM Utilisateur WHERE id\+Uti = \+:id\+Uti;\char`\"{})
+\item 
+\mbox{\Hypertarget{vente_8php_ad509db951420ea936c8b01ed2a3bd7b3}\label{vente_8php_ad509db951420ea936c8b01ed2a3bd7b3}} 
+{\bfseries \$pseudo\+User} = \$stmt-\/$>$fetch()
+\item 
+\mbox{\Hypertarget{vente_8php_a45276eb580c26871910d28edf34a6238}\label{vente_8php_a45276eb580c26871910d28edf34a6238}} 
+{\bfseries \$day\+Date} = date(\char`\"{}Y-\/m-\/d\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Fichier contenant le formulaire de vente. 
+
+\begin{DoxyAuthor}{Author}
+Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+\end{DoxyAuthor}
+Structure du formulaire de vente \begin{DoxyDate}{Date}
+2023-\/01-\/16 
+\end{DoxyDate}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{vente_8php_a47e5d84557d4e2df9bb250750c99976e}\label{vente_8php_a47e5d84557d4e2df9bb250750c99976e}} 
+\index{vente.php@{vente.php}!else@{else}}
+\index{else@{else}!vente.php@{vente.php}}
+\doxysubsubsection{\texorpdfstring{else}{else}}
+{\footnotesize\ttfamily if (empty( \$\+\_\+\+SESSION\mbox{[} \textquotesingle{}user\+\_\+id\textquotesingle{}\mbox{]})==true) else}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{                        echo \textcolor{stringliteral}{'<button><a href="{}vente.php?id='} . \$id . \textcolor{stringliteral}{'"{}>Vendre ses billets</a></button>'}}
+
+\end{DoxyCode}

@@ -1,140 +1,146 @@
 body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
 main {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    height: 95vh;
-    background-color: #e6e1f5;
-    padding: 10px;
-    width: -webkit-fill-available;
-  }
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  background-color: #e6e1f5;
+  padding: 10px;
+  width: -webkit-fill-available;
+}
 
 form {
-    width: 400px;
-    padding: 40px;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+  width: 400px;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
 form h2 {
-    text-align: center;
-    /*margin-bottom: 40px;*/
-  }
+  text-align: center;
+  /*margin-bottom: 40px;*/
+}
 
-  hr {
-    margin-bottom: 40px;
-  }
+hr {
+  margin-bottom: 40px;
+}
 
 form input {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #f8f5ff;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #f8f5ff;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
 
 form input[type="submit"] {
-    background-color: #4a0087ff;
-    color: #fff;
-    cursor: pointer;
-  }
+  background-color: #4a0087ff;
+  color: #fff;
+  cursor: pointer;
+}
 
 form input[type="submit"]:hover {
-    background-color: #521f9b8f    ;
-  }
+  background-color: #521f9b8f    ;
+}
 
 form a {
-    color: #ca00ff;
-    text-decoration: none;
-  }
+  color: #ca00ff;
+  text-decoration: none;
+}
 
 form a:hover {
-    text-decoration: underline;
-  }
+  text-decoration: underline;
+}
 
 
 #VerifCaptcha {
-    display: grid;
+  display: grid;
 }
 
-  /*Header code*/
+/*Header code*/
 
 header {
-    display: grid;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 10px 20px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    height: 5vh;
+  display: grid;
+  align-items: center;
+  background-color: #f2f2f2;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: 100px;
 }
 
-#headGauche {
-    grid-column: 1;
-    display: inline-flex;
-    column-gap: 30px;
+
+#headCentre {
+  /*column-gap: 30px;*/
+  align-self: center;
+  justify-self: center;
+  grid-row: 1;
+  grid-column: 2;
 }
 
 #headDroite {
-    grid-column: 2;
-    justify-self: right;
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: right;
 }
 
 
 #refresh:hover 
 {
-  /*couleur d'arrière plan gris foncé*/
-  background-color: #5353538f;
-  color: white;
+/*couleur d'arrière plan gris foncé*/
+background-color: #5353538f;
+color: white;
+cursor: pointer;
 }
 
 header button {
-    background-color: #4a0087ff;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: #4a0087ff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 header button:hover 
 {
-  background-color: #521f9b8f;
+background-color: #521f9b8f;
 }
 
 header input[type="text"] {
-    padding: 12px 20px;
-    border-radius: 4px;
-    border: 1px solid #521f9b8f;
-    margin-right: 20px;
-}
-
-.fa-magnifying-glass {
-    font-size: 24px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  border: 1px solid #521f9b8f;
+  margin-right: 20px;
 }
 
 .fa-user {
-    font-size: 24px;
-    margin-right: 20px;
+  font-size: 24px;
+  margin-right: 20px;
 }
 
 .erreur {
-  color: red;
+color: red;
 }
 #banniereErreur {
-  background-color: #f2dede;
-  border-color: #ebccd1;
-  color: #a94442;
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+background-color: #f2dede;
+border-color: #ebccd1;
+color: #a94442;
+padding: 15px;
+margin-bottom: 20px;
+border: 1px solid transparent;
+border-radius: 4px;
+}
+
+
+#logo{
+width: 220px;
+height: auto;
 }

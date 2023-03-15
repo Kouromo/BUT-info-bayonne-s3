@@ -1,0 +1,86 @@
+\hypertarget{index_8php}{}\doxysection{src/index.php File Reference}
+\label{index_8php}\index{src/index.php@{src/index.php}}
+
+
+Page d\textquotesingle{}accueil de Tickets\textquotesingle{}Press.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{index_8php_a59ad80bc6d36ae7b121b218ede420175}\label{index_8php_a59ad80bc6d36ae7b121b218ede420175}} 
+{\bfseries breadcrumbs} (\$homes=\textquotesingle{}Home\textquotesingle{})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{index_8php_aa8a5a87b9c1a6a0819b88447cbe41877}\label{index_8php_aa8a5a87b9c1a6a0819b88447cbe41877}} 
+{\bfseries \$conn} = \mbox{\hyperlink{_conn_b_d_8php_a2744193bfddb8598a77b183aa53733c3}{Conn\+BD}}()
+\item 
+\mbox{\Hypertarget{index_8php_af59a5f7cd609e592c41dc3643efd3c98}\label{index_8php_af59a5f7cd609e592c41dc3643efd3c98}} 
+{\bfseries \$query} = \char`\"{}SELECT $\ast$ FROM Billet WHERE quantite $>$ 0;\char`\"{}
+\item 
+\mbox{\Hypertarget{index_8php_a112ef069ddc0454086e3d1e6d8d55d07}\label{index_8php_a112ef069ddc0454086e3d1e6d8d55d07}} 
+{\bfseries \$result} = \$conn-\/$>$query(\$query)
+\item 
+\mbox{\Hypertarget{index_8php_a71156f85b787694af20a6c5fa208cf0d}\label{index_8php_a71156f85b787694af20a6c5fa208cf0d}} 
+{\bfseries \$billets} = array()
+\item 
+\mbox{\Hypertarget{index_8php_a0f690f070278d98b5ed58588c62ec09f}\label{index_8php_a0f690f070278d98b5ed58588c62ec09f}} 
+while(\$row=\$result-\/$>$fetch()) {\bfseries \$thedate} = date(\textquotesingle{}Y-\/m-\/d\textquotesingle{})
+\item 
+\mbox{\Hypertarget{index_8php_a6e3e20f19ef95f7fc7d27700c71993eb}\label{index_8php_a6e3e20f19ef95f7fc7d27700c71993eb}} 
+{\bfseries \$sports} = array()
+\item 
+\mbox{\Hypertarget{index_8php_acce3773bcde90e94e1f7cb51bb8b74ea}\label{index_8php_acce3773bcde90e94e1f7cb51bb8b74ea}} 
+{\bfseries \$concerts} = array()
+\item 
+\mbox{\Hypertarget{index_8php_af47b7b52ed2c1651e9d3954ecddb4223}\label{index_8php_af47b7b52ed2c1651e9d3954ecddb4223}} 
+{\bfseries \$festivals} = array()
+\item 
+\mbox{\Hypertarget{index_8php_a4187a4340990a5061ec8ff916b4c66cf}\label{index_8php_a4187a4340990a5061ec8ff916b4c66cf}} 
+{\bfseries \$theatre} = array()
+\item 
+\mbox{\Hypertarget{index_8php_a57c294a5d997d0eba73d06916d4166e9}\label{index_8php_a57c294a5d997d0eba73d06916d4166e9}} 
+{\bfseries \$autre} = array()
+\item 
+if(isset( \$\+\_\+\+SESSION\mbox{[} \textquotesingle{}user\+\_\+id\textquotesingle{}\mbox{]})) if(!isset(\$id)) \mbox{\hyperlink{index_8php_a47e5d84557d4e2df9bb250750c99976e}{else}}
+\item 
+\mbox{\Hypertarget{index_8php_af27a9140d5f2658693e7fd107f716449}\label{index_8php_af27a9140d5f2658693e7fd107f716449}} 
+{\bfseries \$stmt} = \$conn-\/$>$prepare(\char`\"{}SELECT pseudo FROM Utilisateur WHERE id\+Uti = \+:id\+Uti;\char`\"{})
+\item 
+\mbox{\Hypertarget{index_8php_ad509db951420ea936c8b01ed2a3bd7b3}\label{index_8php_ad509db951420ea936c8b01ed2a3bd7b3}} 
+{\bfseries \$pseudo\+User} = \$stmt-\/$>$fetch()
+\item 
+\mbox{\Hypertarget{index_8php_a81694d175030a6b4ccf9e90abe51c882}\label{index_8php_a81694d175030a6b4ccf9e90abe51c882}} 
+{\bfseries if} (isset( \$\+\_\+\+GET\mbox{[} \textquotesingle{}success\textquotesingle{}\mbox{]}))
+\item 
+\mbox{\Hypertarget{index_8php_ae9ca54b2912e14155a9620a0eb46a000}\label{index_8php_ae9ca54b2912e14155a9620a0eb46a000}} 
+{\bfseries foreach} ( \$billets as \$billet)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Page d\textquotesingle{}accueil de Tickets\textquotesingle{}Press. 
+
+\begin{DoxyAuthor}{Author}
+Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+\end{DoxyAuthor}
+Page d\textquotesingle{}accueil de Tickets\textquotesingle{}Press où sont affichés les billets disponibles à la vente \begin{DoxyDate}{Date}
+2023-\/01-\/16 
+\end{DoxyDate}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{index_8php_a47e5d84557d4e2df9bb250750c99976e}\label{index_8php_a47e5d84557d4e2df9bb250750c99976e}} 
+\index{index.php@{index.php}!else@{else}}
+\index{else@{else}!index.php@{index.php}}
+\doxysubsubsection{\texorpdfstring{else}{else}}
+{\footnotesize\ttfamily if (empty( \$\+\_\+\+SESSION\mbox{[} \textquotesingle{}user\+\_\+id\textquotesingle{}\mbox{]})==true) else}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{                        echo \textcolor{stringliteral}{'<a href="{}vente.php?id='} . \$id . \textcolor{stringliteral}{'"{}><button>Vendre ses billets</button></a>'}}
+
+\end{DoxyCode}

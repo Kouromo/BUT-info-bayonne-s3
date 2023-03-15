@@ -1,3 +1,10 @@
+/**
+ * 
+ * @file date.js
+ * @brief Javascript qui actualise la date du billet
+ * @date 2023-03-10
+ */
+
 // Function to update the page based on the response from the PHP script
 function updatePage(response) {
   // Do something with the response, such as updating the content on the page
