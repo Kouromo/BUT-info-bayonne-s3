@@ -3,6 +3,7 @@ body{
     margin: 0;
     padding: 0;
     text-decoration: none;
+    font-family: Arial, sans-serif;
 }
 
 header {
@@ -33,7 +34,7 @@ a {
 }
 
 header button {
-    background-color: #4CAF50;
+    background-color: #4a0087ff;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -41,10 +42,30 @@ header button {
     cursor: pointer;
 }
 
+header button a {
+    color: white;
+}
+
+/*change l'aspect du curseur sur cliquable quand on clique sur le header label*/
+#headDroite label {
+    cursor: pointer;
+}
+
+/* lorsque #headDroite label et .fa-user ont le curseur par dessus, ils sont tous les deux mis en violet*/
+#headDroite label:hover{
+    color: #8a2be2;
+}
+
+header button:hover {
+    background-color: #521f9b8f;
+}
+
+
 .fa-user {
     font-size: 24px;
     margin-right: 20px;
 }
+
 
 form {
     display: flex;
@@ -76,7 +97,7 @@ input[type="date"] {
 input[type="submit"] {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #4a0087ff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -84,7 +105,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #3e8e41;
+    background-color: #521f9b8f;
 }
 
 #genre {
@@ -125,3 +146,9 @@ input[type="radio"] {
 
 
 /* modifie pour que les boutons radio et leurs texte soit plus proche */
+
+
+#buttonPanier {
+    border: 12px 20px;
+    margin: 0 20px;
+}
