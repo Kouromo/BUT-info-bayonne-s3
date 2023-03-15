@@ -1,7 +1,9 @@
 
 <?php
-include('ConnBD.php');
-$conn = ConnBD();
+    // session_start();
+    include('ConnBD.php');
+    $conn = ConnBD();
+
     $date = $_GET['date'];
 
     // Connexion à la base de données
@@ -121,12 +123,8 @@ $conn = ConnBD();
 
     echo "</section>";
 
-    echo '<script src="search_tickets.js"></script>';
-
     // Fermeture de la connexion à la base de données PDO
     $conn = null; //mysqli_close($conn);
-  
-  
 
     // Renvoi de l'affichage HTML des billets
     echo $html;

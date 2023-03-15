@@ -178,6 +178,7 @@
                         if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
                             // Mise à jour de l'affichage des billets
                             document.getElementById("billet").innerHTML = xhr.responseText;
+                            search_ticket();
                         }
                     };
                     xhr.send(); 
