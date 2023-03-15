@@ -1,0 +1,57 @@
+\hypertarget{get__posts_8php}{}\doxysection{src/get\+\_\+posts.php File Reference}
+\label{get__posts_8php}\index{src/get\_posts.php@{src/get\_posts.php}}
+
+
+Raffraichit une partie des billets.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{get__posts_8php_aabd1b8c6d9facd36634d951bb718c308}\label{get__posts_8php_aabd1b8c6d9facd36634d951bb718c308}} 
+{\bfseries breadcrumbs} (\$home=\textquotesingle{}Home\textquotesingle{})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{get__posts_8php_aa8a5a87b9c1a6a0819b88447cbe41877}\label{get__posts_8php_aa8a5a87b9c1a6a0819b88447cbe41877}} 
+{\bfseries \$conn} = \mbox{\hyperlink{_conn_b_d_8php_a2744193bfddb8598a77b183aa53733c3}{Conn\+BD}}()
+\item 
+\mbox{\Hypertarget{get__posts_8php_a481c918f8d853749e00b5942cabf599a}\label{get__posts_8php_a481c918f8d853749e00b5942cabf599a}} 
+{\bfseries \$date} = \$\+\_\+\+GET\mbox{[}\textquotesingle{}date\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{get__posts_8php_af27a9140d5f2658693e7fd107f716449}\label{get__posts_8php_af27a9140d5f2658693e7fd107f716449}} 
+{\bfseries \$stmt} = \$conn-\/$>$prepare(\char`\"{}SELECT $\ast$ FROM Billet WHERE date\+Exp $>$ \+:date\char`\"{})
+\item 
+\mbox{\Hypertarget{get__posts_8php_a46ee482029c781bdd1a7ae461320eee4}\label{get__posts_8php_a46ee482029c781bdd1a7ae461320eee4}} 
+while(\$row=\$stmt-\/$>$fetch(PDO\+::\+FETCH\+\_\+\+ASSOC)) {\bfseries \$sports} = array()
+\item 
+\mbox{\Hypertarget{get__posts_8php_acce3773bcde90e94e1f7cb51bb8b74ea}\label{get__posts_8php_acce3773bcde90e94e1f7cb51bb8b74ea}} 
+{\bfseries \$concerts} = array()
+\item 
+\mbox{\Hypertarget{get__posts_8php_af47b7b52ed2c1651e9d3954ecddb4223}\label{get__posts_8php_af47b7b52ed2c1651e9d3954ecddb4223}} 
+{\bfseries \$festivals} = array()
+\item 
+\mbox{\Hypertarget{get__posts_8php_a4187a4340990a5061ec8ff916b4c66cf}\label{get__posts_8php_a4187a4340990a5061ec8ff916b4c66cf}} 
+{\bfseries \$theatre} = array()
+\item 
+\mbox{\Hypertarget{get__posts_8php_a57c294a5d997d0eba73d06916d4166e9}\label{get__posts_8php_a57c294a5d997d0eba73d06916d4166e9}} 
+{\bfseries \$autre} = array()
+\item 
+\mbox{\Hypertarget{get__posts_8php_a6f96e7fc92441776c9d1cd3386663b40}\label{get__posts_8php_a6f96e7fc92441776c9d1cd3386663b40}} 
+{\bfseries \$html} = \char`\"{}\char`\"{}
+\item 
+\mbox{\Hypertarget{get__posts_8php_ae9ca54b2912e14155a9620a0eb46a000}\label{get__posts_8php_ae9ca54b2912e14155a9620a0eb46a000}} 
+{\bfseries foreach} ( \$billets as \$billet)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Raffraichit une partie des billets. 
+
+\begin{DoxyAuthor}{Author}
+Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+\end{DoxyAuthor}
+Raffraichit une partie des billets quand on change la date \begin{DoxyDate}{Date}
+2023-\/02-\/16 
+\end{DoxyDate}

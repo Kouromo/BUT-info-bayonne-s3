@@ -1,4 +1,12 @@
 <?php
+/**
+ * @file get_posts.php
+ * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+ * @brief Raffraichit une partie des billets
+ * @details Raffraichit une partie des billets quand on change la date
+ * @date 2023-02-16
+ */
+
 include('ConnBD.php');
 $conn = ConnBD();
     $date = $_GET['date'];

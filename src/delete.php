@@ -1,4 +1,13 @@
 <?php
+    /**
+     * Supprime un article du panier
+     * @file delete.php
+     * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+     * @brief Supprimer un article du panier
+     * @details Ce programme permet de supprimer un article du panier
+     * @date 2023-01-16
+     */
+
     session_start();
     
     if(isset($_GET['id'])) {

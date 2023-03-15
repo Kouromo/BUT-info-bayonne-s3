@@ -1,4 +1,12 @@
 <?php
+/**
+ * Page d'inscription
+ * @file inscription.php
+ * @brief Ce programme permet à un utilisateur de s'inscrire sur le site
+ * @details Ce programme permet à un utilisateur de s'inscrire sur le site et affiche une erreur si l'inscription n'a pas pu être effectuée
+ * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+ * @date 2023-02-21
+ */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   include('ConnBD.php');
   $conn = ConnBD();

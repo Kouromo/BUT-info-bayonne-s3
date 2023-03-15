@@ -97,6 +97,7 @@ header {
   /*couleur d'arrière plan gris foncé*/
   background-color: #5353538f;
   color: white;
+  cursor: pointer;
 }
 
 header button {

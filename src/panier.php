@@ -1,4 +1,11 @@
 <?php
+/**
+ * Ajoute un article au panier
+ * @file panier.php
+ * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+ * @brief Affiche le contenu du panier et permet de faire la transaction
+ * @date 2023-02-21
+ */
 include('ConnBD.php');
 
 $conn = ConnBD();

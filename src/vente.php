@@ -1,4 +1,11 @@
 <?php
+    /**
+     * @file vente.php
+     * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+     * @brief Fichier contenant le formulaire de vente
+     * @details Structure du formulaire de vente
+     * @date 2023-01-16
+     */
     include('ConnBD.php');
     $conn = ConnBD();
 

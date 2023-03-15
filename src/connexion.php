@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * @file connexion.php
+ * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+ * @brief Page de connexion à Tickets'Press
+ * @details Page de connexion à Tickets'Press où doit être saisi l'adresse mail et le mot de passe de l'utilisateur
+ * @date 2023-01-16
+ */
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   include('ConnBD.php');
   $conn = ConnBD();

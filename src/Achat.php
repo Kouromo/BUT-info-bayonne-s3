@@ -1,4 +1,12 @@
 <?php
+    /**
+     * @file Achat.php
+     * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+     * @brief Fichier contenant les informations du billet
+     * @details Informations du billet
+     * @date 2023-01-16
+     */
+
     include('ConnBD.php');
     $conn = ConnBD();
 
