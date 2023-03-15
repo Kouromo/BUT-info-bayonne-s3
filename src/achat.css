@@ -3,6 +3,7 @@ body{
     margin: 0;
     padding: 0;
     text-decoration: none;
+    font-family: Arial, sans-serif;
 }
 
 header {
@@ -57,13 +58,6 @@ header button a {
 
 header button:hover {
     background-color: #521f9b8f;
-}
-
-header input[type="text"] {
-    padding: 12px 20px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-right: 20px;
 }
 
 .fa-user {
@@ -167,4 +161,9 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #521f9b8f;
+}
+
+#buttonPanier {
+    border: 12px 20px;
+    margin: 0 20px;
 }
