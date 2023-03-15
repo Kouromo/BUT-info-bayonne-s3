@@ -61,7 +61,7 @@
                 <div>
                     <?php
                         if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
-                            echo '<a href="connexion.html">';
+                            echo '<a href="connexion.php">';
                             echo '<i class="fa-solid fa-user"></i>';
                             echo '<label for="user">Se connecter</label>';
                             echo '</a>';
