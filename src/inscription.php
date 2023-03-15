@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
           header('Location: inscription.php?error=password'); // Mots de passe différents
         }
-      } elseif($mailExist == true) {
+      } elseif ($mailExist == true) {
         header('Location: inscription.php?error=mailExist'); // Mail déjà existant
-      } elseif($pseudoExist == true) {
+      } elseif ($pseudoExist == true) {
         header('Location: inscription.php?error=pseudoExist'); // Pseudo déjà existant
       }
     } else {
@@ -108,17 +108,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <header>
     <section id="headCentre">
-        <!--Logo qui redirige vers l'index-->
-        <a href="index.php">
-          <img id="logo" src="images/logo1.png" alt="Logo de Ticket'sPress">
-        </a>
-      </section>
-      <section id="headDroite">
-        <div>
-          <i class="fa-solid fa-user"></i>
-        </div>
-      </section>
+      <!--Logo qui redirige vers l'index-->
+      <a href="index.php">
+        <img id="logo" src="images/logo1.png" alt="Logo de Ticket'sPress">
+      </a>
+    </section>
+    <section id="headDroite">
+      <div>
+        <i class="fa-solid fa-user"></i>
+      </div>
+    </section>
   </header>
+  
   <main>
     <!-- Formulaire d'inscription -->
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -140,6 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         echo '</div>';
       }
+
       ?>
       <label for="pseudo">Pseudo * : </label>
       <input type="text" name="pseudo" placeholder="Votre pseudo" required>

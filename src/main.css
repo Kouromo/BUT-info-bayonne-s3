@@ -88,6 +88,7 @@ header input[type="text"] {
 
 #buttonPanier {
     border: 12px 20px;
+    margin: 0 20px;
 }
 
 /* Styles pour le formulaire de recherche */
