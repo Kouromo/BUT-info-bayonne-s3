@@ -4,7 +4,7 @@
     $conn = ConnBD();
 
     // Requête pour récupérer tous les billets
-    $query = "SELECT * FROM Billet;";
+    $query = "SELECT * FROM Billet WHERE quantite > 0;";
     $result = $conn->query($query); //$result = mysqli_query($conn, $query);
     
     // Stockage des billets dans un tableau PHP
@@ -54,25 +54,27 @@
         <header>
             <section id = "headGauche">
                 <?php
-                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                    // si je suis pas connecté, renvoie à la page connexion.php, sinon renvoie à la page de vente
                     if (!isset($id)) {
-                        echo '<button><a href="connexion.html">Vendre ses billets</a></button>';
+                        echo '<button><a href="connexion.php">Vendre ses billets</a></button>';
                     } else {
                         echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</a></button>';
                     }
                 ?>
 
-                <div>
+                <div id = "recherche">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input id="searchbar" onkeyup="search_ticket()" type="text"
                     name="search" placeholder="Rechercher">
+                    <!-- affiche le compteur initialisé dans search_tikets.js -->
+                    <p id="counter"></p>
                 </div>
             </section>
             <section id="headDroite">
                 <div>
                     <?php
                     if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
-                        echo '<a href="connexion.html">';
+                        echo '<a href="connexion.php">';
                         echo '<i class="fa-solid fa-user"></i>';
                         echo '<label for="user">Se connecter</label>';
                         echo '</a>';
@@ -90,6 +92,7 @@
                         echo '<a href="#">';
                         echo '<i class="fa-solid fa-user"></i>';
                         echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                        echo '<button><a href="panier.php?id=' . $id . '">panier</a></button>';
                         echo '</a>';
                     }
                     ?>
@@ -100,47 +103,23 @@
         <!-- Contenu principal de la page -->
         <main>
             <!-- Formulaire pour sélectionner la date -->
-            <!-- fil d'ariane -->
+            <!-- début fil d'ariane -->
             <?php
-       function breadcrumbs($homes = 'Home')
-       {
-           global $page_title;
-           $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
-       
-           if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-               // Le site est accessible via HTTPS
-               $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
-           } else {
-               // Le site est accessible via HTTP ou en local
-               $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-           }
-       
-           $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-           $current_path = '';
-       
-           $num_breadcrumbs = count($breadcrumbs);
-           $i = 1;
-           foreach ($breadcrumbs as $crumb) {
-               $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
-               $current_path .= $crumb . '/';
-               if ($i == $num_breadcrumbs) {
-                   $breadcrumb .= '<a class="breadcrumb-item">' . $link . '</a>';
-               } else {
-                   $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
-               }
-               $i++;
-           }
-       
-           $breadcrumb .= '</div></div></div>';
-           return $breadcrumb;
-       }
-       $_SESSION['breadcrumbs'] = breadcrumbs();
-       echo '<p>' . $_SESSION['breadcrumbs'] . '</p>';
-       
-
+                $linkActu = "Accueil";
+                echo $linkActu;
+            
+                // Affichage de la bannière de succès
+                if (isset($_GET['success'])){
+                    echo '<div id="banniereSuccess" role="alert">';
+                    if ($_GET['success'] == 'connexion'){
+                        echo '<p class="success">Bon retour !</p>';
+                    }
+                    else if ($_GET['success'] == 'inscription'){
+                        echo '<p class="success">Bienvenue, inscription réussie !</p>';
+                    }
+                    echo '</div>';
+                }
             ?>
-
-        
 
             <form>
                 <label for="date">billet disponible à partir du : </label>
@@ -162,16 +141,18 @@
                     xhr.open("GET", "get_posts.php?date=" + date, true);
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                            // Mise à jour de l'affichage des billets  
+                            // Mise à jour de l'affichage des billets
                             document.getElementById("billet").innerHTML = xhr.responseText;
+                            search_ticket();
                         }
                     };
-                    xhr.send();
+                    xhr.send(); 
                 });
             </script>
 
             <?php
                 echo "<section id='billet'>";
+                
                 foreach ($billets as $billet) {
                     $genre = trim($billet['genre']);
                     switch ($genre) {
@@ -201,63 +182,60 @@
                 echo '<h2>Sports</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($sports as $sport) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $sport['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/sport.jpg"> <br>';
-                    echo '<span style="font-size: smaller;" >' . $sport['libelle'] . '</span><br>';
-                    echo '</a>';
+                    echo '<span style="font-size: smaller;">' . $sport['libelle'] . '</span><br>';
                     echo '</article>';
+                    echo '</a>';
                 }
                 echo '</div>';
 
                 echo '<h2>Concerts</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($concerts as $concert) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $concert['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/concert.jpg"> <br>';
-                    echo '<span style="font-size: smaller;" >' . $concert['libelle'] . '</span><br>';
-                    echo '</a>';
+                    echo '<span style="font-size: smaller;">' . $concert['libelle'] . '</span><br>';
                     echo '</article>';
+                    echo '</a>';
                 }
-
                 echo '</div>';
 
                 echo '<h2>Festivals</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($festivals as $festival) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $festival['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/festival.jpg"> <br>';
-                    echo '<span style="font-size: smaller;" >' . $festival['libelle'] . '</span><br>';
-                    echo '</a>';
+                    echo '<span style="font-size: smaller;">' . $festival['libelle'] . '</span><br>';
                     echo '</article>';
+                    echo '</a>';
                 }
-
                 echo '</div>';
 
                 echo '<h2>Theatre</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($theatre as $theatres) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $theatres['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/theatre.jpg"> <br>';
-                    echo '<span style="font-size: smaller;" >' . $theatres['libelle'] . '</span><br>';
-                    echo '</a>';
+                    echo '<span style="font-size: smaller;">' . $theatres['libelle'] . '</span><br>';
                     echo '</article>';
+                    echo '</a>';
                 }
-
                 echo '</div>';
 
                 echo '<h2>Autre</h2>';
                 echo '<div style="display: flex;">';
                 foreach ($autre as $autres) {
-                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<a href="achat.php?id=' . $autres['id'] . '">';
+                    echo '<article style="width: 175px; word-wrap: break-word;">';
                     echo '<img src="images/autre.jpg"> <br>';
-                    echo '<span style="font-size: smaller;" >' . $autres['libelle'] . '</span><br>';
-                    echo '</a>';
+                    echo '<span style="font-size: smaller;">' . $autres['libelle'] . '</span><br>';
                     echo '</article>';
+                    echo '</a>';
                 }
                 echo '</div>';
 

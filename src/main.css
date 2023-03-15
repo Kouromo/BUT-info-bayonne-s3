@@ -1,8 +1,15 @@
+/* Police de caractère par défaut pour le corps de la page */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
 /*Header */
-body{
+body {
     margin: 0;
     padding: 0;
     text-decoration: none;
+    background-color: #e6e6fa;
 }
 
 header {
@@ -33,12 +40,30 @@ a {
 }
 
 header button {
-    background-color: #4CAF50;
+    background-color: #4a0087ff;
     color: white;
     padding: 12px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+header button a {
+    color: white;
+}
+
+/*change l'aspect du curseur sur cliquable quand on clique sur le header label*/
+#headDroite label {
+    cursor: pointer;
+}
+
+/* lorsque #headDroite label et .fa-user ont le curseur par dessus, ils sont tous les deux mis en violet*/
+#headDroite label:hover{
+    color: #8a2be2;
+}
+
+header button:hover {
+    background-color: #521f9b8f;
 }
 
 header input[type="text"] {
@@ -52,60 +77,162 @@ header input[type="text"] {
     font-size: 24px;
 }
 
+#recherche{
+    align-items: center;
+}
+
 .fa-user {
     font-size: 24px;
     margin-right: 20px;
 }
 
+/* Styles pour le formulaire de recherche */
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-/* Style the links inside the navigation bar */
-.categories a {
-    float: left;
-    background-color: #ddd;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+form label {
+    font-size: 18px;
+    font-weight: bold;
 }
-  
-/* Change the color of links on hover */
-.categories div:hover {
-    background-color: #eee;
-    color: black;
+
+form select {
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
 }
-  
-/* Add a color to the active/current link */
-.categories div.active {
-    background-color: #3f6fa7;
+
+form input[type="submit"] {
+    background-color: #2ecc71;
+    border: none;
     color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-
-input {
-    margin: .4rem 0;
+form input[type="submit"]:hover {
+    background-color: #27ae60;
 }
 
-.bwc .mat-tab-label.mat-tab-label-active, .bwc .mat-tab-label.mat-tab-label-active bwc-icon .mat-icon {
-    color: #14438b;
+/* Styles pour la liste des événements */
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-.bwc .mat-tab-label {
-    font-size: 1rem;
-    line-height: 1.5;
-    font-family: ExcellenceInMotion,Helvetica Neue,sans-serif;
-    text-transform: none;
-    font-weight: 700;
-    min-width: auto;
-    padding: 0 16px;
-    opacity: unset;
-    color: #051039;
+.event {
+    width: 30%;
+    margin: 1.5%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.event img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.event h3 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.event p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.event button {
+    background-color: #2ecc71;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.event button:hover {
+    background-color: #27ae60;
+}
+
+/* Définition du style pour l'article */
+article {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    height: 85%;
+    background-color: #e6e6fa;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Définition du style pour l'image */
+article img {
+    width: 100%;
+}
+
+/* Définition du style pour le texte */
+article span {
+    display: block;
+    margin-top: 5px;
+    font-size: smaller;
+    text-align: center;
+}
+
+/* Définition du style pour la section */
+#billet {
+    margin-top: 30px;
+}
+
+/* Définition du style pour le titre des sections */
+h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8a2be2;
+}
+
+/* Définition du style pour la disposition flex */
+section div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
- }
- 
- 
+    max-width: 100%;
+}
+
+span {
+    color: #4b0082;
+    font-weight: bold;
+}
+
+            
+#banniereSuccess{
+                
+    /*background color vert léger*/
+    background-color: #d4edda; 
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.success{
+    color: green;
+}
+

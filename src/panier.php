@@ -2,6 +2,9 @@
     include('ConnBD.php');
     
     $conn = ConnBD();
+
+    
+    $idUtilisateur = $_SESSION['user_id'];
  
     // Vérifie si la variable de session "panier" existe
     if (!isset($_SESSION['panier'])) {
@@ -31,48 +34,78 @@
         <title>Panier</title>
     </head>
     <body>
-        <header>
-            <button>Vendre ses billets</button>
-            <i class="fa-solid fa-user"></i>
+    <header>
+            <section id = "headGauche">
+                <?php
+                    echo '<button><a href="vente.php?id=' . $idUtilisateur . '">Vendre ses billets</a></button>';
+                ?>
+            </section>
+            <section id="headDroite">
+                <div>
+                    <?php
+
+                        $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
+                        // On lie les données envoyées à la requête
+                        $stmt->bindParam(':idUti', $idUtilisateur);
+                        // On exécute la requête
+                        $stmt->execute();
+                        // On récupère les résultats de la requête
+                        $pseudoUser = $stmt->fetch();
+
+                        echo '<a href="#">';
+                        echo '<i class="fa-solid fa-user"></i>';
+                        echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                        
+                        echo '</a>';
+                    ?>
+                </div>
+            </section>
         </header>
         <?php
-      function breadcrumbs($homes = 'Home')
-      {
-          global $page_title;
-          $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
-      
-          if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-              // Le site est accessible via HTTPS
-              $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
-          } else {
-              // Le site est accessible via HTTP ou en local
-              $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-          }
-      
-          $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-          $current_path = '';
-      
-          $num_breadcrumbs = count($breadcrumbs);
-          $i = 1;
-          foreach ($breadcrumbs as $crumb) {
-              $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
-              $current_path .= $crumb . '/';
-              if ($i == $num_breadcrumbs) {
-                  $breadcrumb .= '<a class="breadcrumb-item">' . $link . '</a>';
-              } else {
-                  $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
-              }
-              $i++;
-          }
-      
-          $breadcrumb .= '</div></div></div>';
-          return $breadcrumb;
-      }
-      
-      echo '<p>' . $_SESSION['breadcrumbs'] . '</p>';
-      
-            ?>
+ function breadcrumbs($homes = 'Home')
+ {
+     global $page_title;
+     $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
+ 
+     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+         // Le site est accessible via HTTPS
+         $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+     } else {
+         // Le site est accessible via HTTP ou en local
+         $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+     }
+ 
+     $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+     $current_path = '';
+ 
+     $num_breadcrumbs = count($breadcrumbs);
+     $i = 1;
+     foreach ($breadcrumbs as $crumb) {
+         $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+         $linkPrecedent = "Accueil";
+         $current_path .= $crumb . '/';
+         if ($i == $num_breadcrumbs) {
+         
+             $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
+             
+         } else {
 
+             if ($i == $num_breadcrumbs-1) {
+                 $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
+             }
+             //ligne à décomenter en cas d'utilisation sur le web
+            /* else{
+             $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+             }*/
+         }
+         $i++;
+     }
+ 
+     $breadcrumb .= '</div></div></div>';
+     return $breadcrumb;
+ }
+ echo breadcrumbs();   
+?>
         <?php
             if (empty($_SESSION['panier'])) {
                 echo "<p>Le panier est vide. Pour ajouter du contenu au panier, cliquez sur un BILLET et sélectionnez \"Ajouter au panier\".</p>";
@@ -127,8 +160,14 @@
                 echo '<label for="csv">Entrez votre CSV :</label><br>';
                 echo '<input type="text" name="csv" id="csv" maxlength="3"><br>';
                 echo '<label for="dateExpiration">Date d\'expiration :</label><br>';
-                echo '<input type="date" name="dateExpiration" id="dateExpiration"><br>';
+                echo '<input type="date" name="dateExpiration" id="dateExpiration"><br><br>';
                 echo '</section>';
+                echo '<div class="verifCaptcha">';
+                echo '<label for="codeCaptcha">Vérification * :</label><br>';
+                echo '<img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img><br>';
+                echo '<input type="button" value="Refresh Captcha" onClick="location.href=location.href"><br>';
+                echo '<input type="txt" name="codeCaptcha" placeholder="Code du Captcha" maxlength="10" required>';
+                echo '</div>';
                 echo '<input type="submit" value="Envoyer">';
                 echo '</form>';
 

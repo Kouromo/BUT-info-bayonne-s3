@@ -88,6 +88,14 @@ header {
     justify-self: right;
 }
 
+
+#refresh:hover 
+{
+  /*couleur d'arrière plan gris foncé*/
+  background-color: #5353538f;
+  color: white;
+}
+
 header button {
     background-color: #4a0087ff;
     color: white;
@@ -116,4 +124,17 @@ header input[type="text"] {
 .fa-user {
     font-size: 24px;
     margin-right: 20px;
+}
+
+.erreur {
+  color: red;
+}
+#banniereErreur {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
