@@ -1,4 +1,11 @@
 <?php
+/**
+ * @file verificationAchat.php
+ * @author Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR
+ * @brief Vérifie que les champs saisis sont corrects
+ * @date 2023-02-02
+ * @detail Si les champs sont corrects, on enregistre la vente dans la base de données et on retire un à la quantité de l'article sinon on affiche un message d'erreur et on redirige vers la page d'accueil
+ */
 
 include('ConnBD.php');
 $conn = ConnBD();
@@ -61,10 +68,10 @@ if (isset($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha'
 
     } else {
         // Si la date d'expiration est inférieure à la date actuelle, on redirige vers la page de connexion
-        header('Location: panier.php');
+        header('Location: panier.php?error=date');
     }
 } else {
     // Si le code captcha est mauvais, on redirige vers la page de connexion
-    header('Location: panier.php');
+    header('Location: panier.php?error=captcha');
 }
 ?>

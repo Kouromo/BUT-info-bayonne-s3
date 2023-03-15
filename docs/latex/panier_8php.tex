@@ -1,0 +1,73 @@
+\hypertarget{panier_8php}{}\doxysection{src/panier.php File Reference}
+\label{panier_8php}\index{src/panier.php@{src/panier.php}}
+
+
+Affiche le contenu du panier et permet de faire la transaction.  
+
+
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{panier_8php_aa8a5a87b9c1a6a0819b88447cbe41877}\label{panier_8php_aa8a5a87b9c1a6a0819b88447cbe41877}} 
+{\bfseries \$conn} = \mbox{\hyperlink{_conn_b_d_8php_a2744193bfddb8598a77b183aa53733c3}{Conn\+BD}}()
+\item 
+\mbox{\Hypertarget{panier_8php_a6915f098cf499297fcc07d9ccdf622ec}\label{panier_8php_a6915f098cf499297fcc07d9ccdf622ec}} 
+if(!isset(\$\+\_\+\+SESSION\mbox{[}\textquotesingle{}panier\textquotesingle{}\mbox{]})) if( \$\+\_\+\+SERVER\mbox{[} \textquotesingle{}REQUEST\+\_\+\+METHOD\textquotesingle{}\mbox{]}===\textquotesingle{}POST\textquotesingle{}) if(isset(\$\+\_\+\+GET\mbox{[}\textquotesingle{}error\textquotesingle{}\mbox{]})) {\bfseries \$docroot} = \char`\"{}/zen/index5.\+php\char`\"{}
+\item 
+\mbox{\Hypertarget{panier_8php_a0a4baf0b22973c07685c3981f0d17fc4}\label{panier_8php_a0a4baf0b22973c07685c3981f0d17fc4}} 
+{\bfseries \$path} = (\$\+\_\+\+SERVER\mbox{[}\textquotesingle{}REQUEST\+\_\+\+URI\textquotesingle{}\mbox{]})
+\item 
+\mbox{\Hypertarget{panier_8php_affd6fc4c8210d8b9b164c72a0332e732}\label{panier_8php_affd6fc4c8210d8b9b164c72a0332e732}} 
+{\bfseries \$names} = explode(\char`\"{}/\char`\"{}, \$path)
+\item 
+\mbox{\Hypertarget{panier_8php_a3f07cbe020b5a381be1d36523770a560}\label{panier_8php_a3f07cbe020b5a381be1d36523770a560}} 
+{\bfseries \$trimnames} = array\+\_\+slice(\$names, 1, -\/1)
+\item 
+\mbox{\Hypertarget{panier_8php_adf14d8e29912c1855022dfa252aa4087}\label{panier_8php_adf14d8e29912c1855022dfa252aa4087}} 
+{\bfseries \$length} = count(\$trimnames) -\/ 1
+\item 
+\mbox{\Hypertarget{panier_8php_a1237a64fceffc74621bf2937b65d5c25}\label{panier_8php_a1237a64fceffc74621bf2937b65d5c25}} 
+{\bfseries \$fixme} = array(\char`\"{}.php\char`\"{}, \char`\"{}-\/\char`\"{}, \char`\"{}myname\char`\"{})
+\item 
+\mbox{\Hypertarget{panier_8php_a2a01aa19360da12e262720f2e28c9333}\label{panier_8php_a2a01aa19360da12e262720f2e28c9333}} 
+{\bfseries \$fixes} = array(\char`\"{}\char`\"{}, \char`\"{} \char`\"{}, \char`\"{}My$<$strong$>$Name$<$/strong$>$\char`\"{})
+\item 
+\mbox{\Hypertarget{panier_8php_acf215f34a917d014776ce684a9ee8909}\label{panier_8php_acf215f34a917d014776ce684a9ee8909}} 
+{\bfseries \$url} = \char`\"{}\char`\"{}
+\item 
+\mbox{\Hypertarget{panier_8php_a70ae7c3719f2b3a7a2370746571d20b2}\label{panier_8php_a70ae7c3719f2b3a7a2370746571d20b2}} 
+{\bfseries for} ( \$i=2;\$i$<$=\$length;\$i++)
+\item 
+if(empty(\$\+\_\+\+SESSION\mbox{[}\textquotesingle{}panier\textquotesingle{}\mbox{]})) \mbox{\hyperlink{panier_8php_acce0c52f9e22ecefeb469a32fa9a7e30}{else}}
+\item 
+\mbox{\Hypertarget{panier_8php_a25e04088c82485d84c48d13f1d246ede}\label{panier_8php_a25e04088c82485d84c48d13f1d246ede}} 
+{\bfseries foreach} ( \$\+\_\+\+SESSION\mbox{[} \textquotesingle{}panier\textquotesingle{}\mbox{]} as \$article)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Affiche le contenu du panier et permet de faire la transaction. 
+
+Ajoute un article au panier
+
+\begin{DoxyAuthor}{Author}
+Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2023-\/02-\/21 
+\end{DoxyDate}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{panier_8php_acce0c52f9e22ecefeb469a32fa9a7e30}\label{panier_8php_acce0c52f9e22ecefeb469a32fa9a7e30}} 
+\index{panier.php@{panier.php}!else@{else}}
+\index{else@{else}!panier.php@{panier.php}}
+\doxysubsubsection{\texorpdfstring{else}{else}}
+{\footnotesize\ttfamily if (empty( \$\+\_\+\+SESSION\mbox{[} \textquotesingle{}panier\textquotesingle{}\mbox{]})) else}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{            echo \textcolor{stringliteral}{'<table>'}}
+
+\end{DoxyCode}

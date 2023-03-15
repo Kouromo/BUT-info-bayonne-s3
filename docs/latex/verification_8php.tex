@@ -1,0 +1,41 @@
+\hypertarget{verification_8php}{}\doxysection{src/verification.php File Reference}
+\label{verification_8php}\index{src/verification.php@{src/verification.php}}
+
+
+Vérifie que le champs saisi correspond bien au champs du \mbox{\hyperlink{class_captcha}{Captcha}}.  
+
+
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+if(isset(\$\+\_\+\+POST\mbox{[}\textquotesingle{}captcha\textquotesingle{}\mbox{]}) \&\& \$\+\_\+\+POST\mbox{[}\textquotesingle{}captcha\textquotesingle{}\mbox{]}==\$\+\_\+\+SESSION\mbox{[}\textquotesingle{}captcha\textquotesingle{}\mbox{]}) \mbox{\hyperlink{verification_8php_a5f01ad63b729b74cd47646152ca9323b}{else}}
+\item 
+\mbox{\Hypertarget{verification_8php_a1c81db0499f4d70c3d6f5bc07ff77585}\label{verification_8php_a1c81db0499f4d70c3d6f5bc07ff77585}} 
+{\bfseries \$\+\_\+\+SESSION} \mbox{[}\textquotesingle{}attempts\textquotesingle{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Vérifie que le champs saisi correspond bien au champs du \mbox{\hyperlink{class_captcha}{Captcha}}. 
+
+\begin{DoxyAuthor}{Author}
+Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2023-\/02-\/02 
+\end{DoxyDate}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{verification_8php_a5f01ad63b729b74cd47646152ca9323b}\label{verification_8php_a5f01ad63b729b74cd47646152ca9323b}} 
+\index{verification.php@{verification.php}!else@{else}}
+\index{else@{else}!verification.php@{verification.php}}
+\doxysubsubsection{\texorpdfstring{else}{else}}
+{\footnotesize\ttfamily if (isset( \$\+\_\+\+POST\mbox{[} \textquotesingle{}captcha\textquotesingle{}\mbox{]}) \&\&\$\+\_\+\+POST\mbox{[} \textquotesingle{}captcha\textquotesingle{}\mbox{]}==\$\+\_\+\+SESSION\mbox{[} \textquotesingle{}captcha\textquotesingle{}\mbox{]}) else}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        echo \textcolor{stringliteral}{"{}c'est pas bon <br>"{}}}
+
+\end{DoxyCode}

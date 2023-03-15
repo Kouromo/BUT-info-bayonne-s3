@@ -1,0 +1,48 @@
+\hypertarget{verification_achat_8php}{}\doxysection{src/verification\+Achat.php File Reference}
+\label{verification_achat_8php}\index{src/verificationAchat.php@{src/verificationAchat.php}}
+
+
+Vérifie que les champs saisis sont corrects.  
+
+
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{verification_achat_8php_aa8a5a87b9c1a6a0819b88447cbe41877}\label{verification_achat_8php_aa8a5a87b9c1a6a0819b88447cbe41877}} 
+{\bfseries \$conn} = \mbox{\hyperlink{_conn_b_d_8php_a2744193bfddb8598a77b183aa53733c3}{Conn\+BD}}()
+\item 
+\mbox{\Hypertarget{verification_achat_8php_a7b377d39aa8f43723162020db542b408}\label{verification_achat_8php_a7b377d39aa8f43723162020db542b408}} 
+{\bfseries \$code\+Captcha} = \$\+\_\+\+POST\mbox{[}\textquotesingle{}code\+Captcha\textquotesingle{}\mbox{]}
+\item 
+\mbox{\Hypertarget{verification_achat_8php_a904a60303f9c60a668b8f2b45b553c61}\label{verification_achat_8php_a904a60303f9c60a668b8f2b45b553c61}} 
+{\bfseries \$date\+Expiration} = \$\+\_\+\+POST\mbox{[}\textquotesingle{}date\+Expiration\textquotesingle{}\mbox{]}
+\item 
+if(isset(\$\+\_\+\+POST\mbox{[}\textquotesingle{}code\+Captcha\textquotesingle{}\mbox{]}) \&\& \$\+\_\+\+POST\mbox{[}\textquotesingle{}code\+Captcha\textquotesingle{}\mbox{]}==\$\+\_\+\+SESSION\mbox{[}\textquotesingle{}captcha\textquotesingle{}\mbox{]}) \mbox{\hyperlink{verification_achat_8php_a3b989e5257c8c6bf7eb60aec7c8263e4}{else}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Vérifie que les champs saisis sont corrects. 
+
+\begin{DoxyAuthor}{Author}
+Quentin ROBERT, Matéo ALVES, Tanguy LAURIOU, Juan David RODRIGUEZ SINCLAIR 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2023-\/02-\/02 @detail Si les champs sont corrects, on enregistre la vente dans la base de données et on retire un à la quantité de l\textquotesingle{}article sinon on affiche un message d\textquotesingle{}erreur et on redirige vers la page d\textquotesingle{}accueil 
+\end{DoxyDate}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{verification_achat_8php_a3b989e5257c8c6bf7eb60aec7c8263e4}\label{verification_achat_8php_a3b989e5257c8c6bf7eb60aec7c8263e4}} 
+\index{verificationAchat.php@{verificationAchat.php}!else@{else}}
+\index{else@{else}!verificationAchat.php@{verificationAchat.php}}
+\doxysubsubsection{\texorpdfstring{else}{else}}
+{\footnotesize\ttfamily if (isset( \$\+\_\+\+POST\mbox{[} \textquotesingle{}code\+Captcha\textquotesingle{}\mbox{]}) \&\&\$\+\_\+\+POST\mbox{[} \textquotesingle{}code\+Captcha\textquotesingle{}\mbox{]}==\$\+\_\+\+SESSION\mbox{[} \textquotesingle{}captcha\textquotesingle{}\mbox{]}) else}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    header(\textcolor{stringliteral}{'Location: panier.php?error=captcha'})}
+
+\end{DoxyCode}
