@@ -46,41 +46,42 @@
 
 
     <body>
-        <header>
+    <header>
             <section id = "headGauche">
                 <?php
-                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
-                    if (!isset($idUti)) {
-                        echo '<button><a href="connexion.php">Vendre ses billets</a></button>';
+                    // si je suis pas connecté, renvoie à la page connexion.php, sinon renvoie à la page de vente
+                    if (!isset($id)) {
+                        echo '<a href="connexion.php"><button>Vendre ses billets</button></a>';
                     } else {
-                        echo '<button><a href="vente.php?id=' . $idUti . '">Vendre ses billets</a></button>';
+                        echo '<a href="vente.php?id=' . $id . '"><button>Vendre ses billets</button></a>';
                     }
                 ?>
             </section>
             <section id="headDroite">
                 <div>
                     <?php
-                        if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
-                            echo '<a href="connexion.php">';
-                            echo '<i class="fa-solid fa-user"></i>';
-                            echo '<label for="user">Se connecter</label>';
-                            echo '</a>';
-                        } else { // Utilisateur connecté
-                            $idUtilisateur = $_SESSION['user_id'];
+                    if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
+                        echo '<a href="connexion.php">';
+                        echo '<i class="fa-solid fa-user"></i>';
+                        echo '<label for="user">Se connecter</label>';
+                        echo '</a>';
+                    } else { // Utilisateur connecté
+                        $idUtilisateur = $_SESSION['user_id'];
 
-                            $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
-                            // On lie les données envoyées à la requête
-                            $stmt->bindParam(':idUti', $idUtilisateur);
-                            // On exécute la requête
-                            $stmt->execute();
-                            // On récupère les résultats de la requête
-                            $pseudoUser = $stmt->fetch();
+                        $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
+                        // On lie les données envoyées à la requête
+                        $stmt->bindParam(':idUti', $idUtilisateur);
+                        // On exécute la requête
+                        $stmt->execute();
+                        // On récupère les résultats de la requête
+                        $pseudoUser = $stmt->fetch();
 
-                            echo '<a href="#">';
-                            echo '<i class="fa-solid fa-user"></i>';
-                            echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
-                            echo '</a>';
-                        }
+                        echo '<a href="#">';
+                        echo '<i class="fa-solid fa-user"></i>';
+                        echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                        echo '<a href="panier.php?id=' . $id . '"><button id="buttonPanier">panier</button></a>';
+                        echo '</a>';
+                    }
                     ?>
                 </div>
             </section>
