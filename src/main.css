@@ -52,6 +52,16 @@ header button a {
     color: white;
 }
 
+/*change l'aspect du curseur sur cliquable quand on clique sur le header label*/
+#headDroite label {
+    cursor: pointer;
+}
+
+/* lorsque #headDroite label et .fa-user ont le curseur par dessus, ils sont tous les deux mis en violet*/
+#headDroite label:hover{
+    color: #8a2be2;
+}
+
 header button:hover {
     background-color: #521f9b8f;
 }
@@ -63,12 +73,12 @@ header input[type="text"] {
     margin-right: 20px;
 }
 
-#recherche {
-    align-items: center;
-}
-
 .fa-magnifying-glass {
     font-size: 24px;
+}
+
+#recherche{
+    align-items: center;
 }
 
 .fa-user {
@@ -211,3 +221,18 @@ span {
     color: #4b0082;
     font-weight: bold;
 }
+
+            
+#banniereSuccess{
+                
+    /*background color vert léger*/
+    background-color: #d4edda; 
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.success{
+    color: green;
+}
+

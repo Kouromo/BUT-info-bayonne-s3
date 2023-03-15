@@ -4,7 +4,7 @@
     $conn = ConnBD();
 
     // Requête pour récupérer tous les billets
-    $query = "SELECT * FROM Billet;";
+    $query = "SELECT * FROM Billet WHERE quantite > 0;";
     $result = $conn->query($query); //$result = mysqli_query($conn, $query);
     
     // Stockage des billets dans un tableau PHP
@@ -54,7 +54,7 @@
         <header>
             <section id = "headGauche">
                 <?php
-                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                    // si je suis pas connecté, renvoie à la page connexion.php, sinon renvoie à la page de vente
                     if (!isset($id)) {
                         echo '<button><a href="connexion.php">Vendre ses billets</a></button>';
                     } else {
@@ -141,6 +141,19 @@
                     return $breadcrumb;
                 }
                 echo breadcrumbs();
+                
+            
+                // Affichage de la bannière de succès
+                if (isset($_GET['success'])){
+                    echo '<div id="banniereSuccess" role="alert">';
+                    if ($_GET['success'] == 'connexion'){
+                        echo '<p class="success">Bon retour !</p>';
+                    }
+                    else if ($_GET['success'] == 'inscription'){
+                        echo '<p class="success">Bienvenue, inscription réussie !</p>';
+                    }
+                    echo '</div>';
+                }
             ?>
 
             <form>
@@ -163,16 +176,17 @@
                     xhr.open("GET", "get_posts.php?date=" + date, true);
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                            // Mise à jour de l'affichage des billets  
+                            // Mise à jour de l'affichage des billets
                             document.getElementById("billet").innerHTML = xhr.responseText;
                         }
                     };
-                    xhr.send();
+                    xhr.send(); 
                 });
             </script>
 
             <?php
                 echo "<section id='billet'>";
+                
                 foreach ($billets as $billet) {
                     $genre = trim($billet['genre']);
                     switch ($genre) {

@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($password, $user['mdp'])) {
           $_SESSION['user_id'] = $user['idUti'];
           $conn = null;
-          header('Location: index.php?success=inscription'); // Connexion réussie
+          header('Location: index.php?success=connexion'); // Connexion réussie
         } else {
           $conn = null;
           header('Location: connexion.php?error=password'); // Mot de passe incorrect

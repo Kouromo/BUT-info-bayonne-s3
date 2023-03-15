@@ -4,6 +4,11 @@
 
     $id = $_GET['id'];
 
+    // si variable de session user_id existe, on la stocke dans $id
+    if (isset($_SESSION['user_id'])) {
+        $idUti = $_SESSION['user_id'];
+    }
+
     // Vérifie si la variable de session "panier" existe
     if (!isset($_SESSION['panier'])) {
         // Si elle n'existe pas, on la crée et on lui affecte une valeur vide
@@ -34,59 +39,93 @@
 
     <body>
         <header>
-            <button>Vendre ses billets</button>
-            <i class="fa-solid fa-user"></i>
+            <section id = "headGauche">
+                <?php
+                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                    if (!isset($idUti)) {
+                        echo '<button><a href="connexion.php">Vendre ses billets</a></button>';
+                    } else {
+                        echo '<button><a href="vente.php?id=' . $idUti . '">Vendre ses billets</a></button>';
+                    }
+                ?>
+            </section>
+            <section id="headDroite">
+                <div>
+                    <?php
+                        if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
+                            echo '<a href="connexion.html">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">Se connecter</label>';
+                            echo '</a>';
+                        } else { // Utilisateur connecté
+                            $idUtilisateur = $_SESSION['user_id'];
+
+                            $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
+                            // On lie les données envoyées à la requête
+                            $stmt->bindParam(':idUti', $idUtilisateur);
+                            // On exécute la requête
+                            $stmt->execute();
+                            // On récupère les résultats de la requête
+                            $pseudoUser = $stmt->fetch();
+
+                            echo '<a href="#">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
+            </section>
         </header>
         <?php
-            function breadcrumbs($homes = 'Home')
-            {
-                global $page_title;
-                $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
-            
-                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-                    // Le site est accessible via HTTPS
-                    $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
-                } else {
-                    // Le site est accessible via HTTP ou en local
-                    $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-                }
-            
-                $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-                $current_path = '';
-            
-                $num_breadcrumbs = count($breadcrumbs);
-                $i = 1;
-                foreach ($breadcrumbs as $crumb) {
-                    $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
-                    $linkPrecedent = "Accueil";
-                    $current_path .= $crumb . '/';
-                    if ($i == $num_breadcrumbs) {
-                    
-                        $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
-                        
-                    } else {
-
-                        if ($i == $num_breadcrumbs-1) {
-                            $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
-                        }
-                        else{
-                        $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
-                        }
-                    }
-                    $i++;
-                }
-            
-                $breadcrumb .= '</div></div></div>';
-                return $breadcrumb;
-            }
-            echo breadcrumbs();
+             function breadcrumbs($homes = 'Home')
+             {
+                 global $page_title;
+                 $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
+             
+                 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+                     // Le site est accessible via HTTPS
+                     $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+                 } else {
+                     // Le site est accessible via HTTP ou en local
+                     $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+                 }
+             
+                 $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+                 $current_path = '';
+             
+                 $num_breadcrumbs = count($breadcrumbs);
+                 $i = 1;
+                 foreach ($breadcrumbs as $crumb) {
+                     $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+                     $linkPrecedent = "Accueil";
+                     $current_path .= $crumb . '/';
+                     if ($i == $num_breadcrumbs) {
+                     
+                         $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
+                         
+                     } else {
+ 
+                         if ($i == $num_breadcrumbs-1) {
+                             $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                         }
+                         else{
+                         $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                         }
+                     }
+                     $i++;
+                 }
+             
+                 $breadcrumb .= '</div></div></div>';
+                 return $breadcrumb;
+             }
+             echo breadcrumbs();         
         ?>
-        
+
         <main>
             <!-- Contenu de la page -->
             <?php
-            
-                echo "<section>";
+                echo "<section id='sectionBillet'>";
                 // id de test pour vérifier si cela fonctionne
                 
                 //$id = $_SESSION['id'];
@@ -137,6 +176,8 @@
                 
                 if (is_numeric(trim($resultsAvis[0]))) {
                     echo "<div class='icon-container'>";
+                    // Fais en sorte que resultsAvis[0] soit arrondi à 0.5 près
+                    $resultsAvis[0] = round($resultsAvis[0] * 2) / 2;
                     for ($i=1; $i <= trim($resultsAvis[0]); $i++) { 
                         echo "<i class='fa-solid fa-star'></i>";
                     }
@@ -187,9 +228,8 @@
                 echo "</section>";
 
                 // Bouton "Ajouter au panier"
-                // echo '<button class="bouton" id="panier" onclick="" data-id="' . $id . '">truc</button>';
-                echo '<form action="sendBillet.php" method="POST">';
-                echo '<input type="hidden" name="id" value="' . $id . '">';            
+                echo '<form action="sendBillet.php" method="post">';
+                echo '<input type="hidden" name="id" value="' . $id . '">';
                 echo '<input type="submit" value="Ajouter au panier">';
                 echo '</form>';
             ?>

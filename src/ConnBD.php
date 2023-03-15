@@ -14,7 +14,7 @@
     */
     function ConnBD()
     {
-        session_start();
+        
 
         // Définition de variables pour se connecter à la base de donnée
         $servername = 'lakartxela.iutbayonne.univ-pau.fr';
@@ -30,6 +30,7 @@
         if (isset($_SESSION['user_id']) == false)
         {
            // L'utilisateur n'est pas connecté
+           session_start();
         }
         else
         {

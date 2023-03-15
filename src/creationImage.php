@@ -6,7 +6,7 @@
     * @date 2023-02-02
     * 
     */
-
+    
     /** Procédure qui crée l'image du Captcha pour chaque caractère et les fusionne à l'image du Captcha qui rassemble toutes les images
     * @param $diff difficulté du Captcha à définir
     * @return void
@@ -33,16 +33,16 @@
             // Ajouter des filtres supplémentaires en fonction du niveau de difficulté
             switch ($difficulty)
             {
-                case 'easy':
-                    imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
-                    break;
-                case 'medium':
-                    imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
-                    break;
-                case 'hard':
-                    imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
-                    imagefilter($_SESSION['image_t'], IMG_FILTER_COLORIZE, rand(-255, 255), rand(-255, 255), rand(-255, 255));
-                    break;
+              case 'easy':
+                imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
+                break;
+              case 'medium':
+                imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
+                break;
+              case 'hard':
+                imagefilter($_SESSION['image_t'], IMG_FILTER_SMOOTH, $_SESSION['distortion_level']);
+                imagefilter($_SESSION['image_t'], IMG_FILTER_COLORIZE, rand(-255, 255), rand(-255, 255), rand(-255, 255));
+                break;
             }
 
             // Ajouter des pixels sur l'images

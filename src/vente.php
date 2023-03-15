@@ -25,7 +25,11 @@
         $categorie = $_POST['categorie'];
         $lieu = $_POST['lieu'];
 
-        if ($prix < 0 || !is_float($prix)) {
+        if ($prix > 100000) {
+            echo "Le prix ne peut pas être supérieur à 100 000";
+            $erreur = true;
+        }
+        else if ($prix < 0 || !is_float($prix)) {
             echo "Le prix doit être un nombre positif";
             $erreur = true;
         }
@@ -79,25 +83,63 @@
     </head>
 
     <body>
-        <header>
-            <button>Vendre ses billets</button>
-            <i class="fa-solid fa-user"></i>
+    <header>
+            <section id = "headGauche">
+                <?php
+                    // si je suis pas connecté, renvoie à la page connexion.html, sinon renvoie à la page de vente
+                    if (!isset($id)) {
+                        echo '<button><a href="connexion.html">Vendre ses billets</a></button>';
+                    } else {
+                        echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</a></button>';
+                    }
+                ?>
+            </section>
+            <section id="headDroite">
+                <div>
+                    <?php
+                        if (empty($_SESSION['user_id']) == true) { // Utilisateur non connecté
+                            echo '<a href="connexion.html">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">Se connecter</label>';
+                            echo '</a>';
+                        } else { // Utilisateur connecté
+                            $idUtilisateur = $_SESSION['user_id'];
+
+                            $stmt = $conn->prepare("SELECT pseudo FROM Utilisateur WHERE idUti = :idUti;");
+                            // On lie les données envoyées à la requête
+                            $stmt->bindParam(':idUti', $idUtilisateur);
+                            // On exécute la requête
+                            $stmt->execute();
+                            // On récupère les résultats de la requête
+                            $pseudoUser = $stmt->fetch();
+
+                            echo '<a href="#">';
+                            echo '<i class="fa-solid fa-user"></i>';
+                            echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
+            </section>
         </header>
 
         <main>
+        
             <?php
                 echo "<form action='vente.php?id=$idUti' method='POST'>";
                 echo '<label for="titre">Titre</label>';
-                echo '<input type="text" name="titre" id="titre" required>';
+                echo '<input type="text" maxlength="200" name="titre" id="titre" required>';
 
                 echo '<label for="description">Description</label>';
-                echo '<input type="text" name="description" id="description" required>';
+                echo '<input type="text" maxlength="1000" name="description" id="description" required>';
 
                 echo '<label for="categorie">Catégorie</label>';
                 echo '<input type="text" name="categorie" id="categorie" placeholder="exemple: RAP Français" required>';
                 
                 echo '<label for="date">Date</label>';
-                echo '<input type="date" name="date" id="date" min="echo date("Y-m-d");" required>';
+                $dayDate = date("Y-m-d");
+                echo '<input type="date" name="date" id="date" min="' . $dayDate . '" required>';
+
 
                 echo '<label for="quantite">Quantité</label>';
                 echo '<input type="number" name="quantite" id="quantite" required>';
@@ -107,7 +149,7 @@
                 echo '<input type="text" name="prix" id="prix" placeholder="exemple: 50.28" required>';
 
                 echo '<label for="lieu">Lieu</label>';
-                echo '<input type="text" name="lieu" id="lieu" placeholder="exemple: 3 avenue Gordon-Bennett, 75016 France" required>';
+                echo '<input type="text" maxlength="100" name="lieu" id="lieu" placeholder="exemple: 3 avenue Gordon-Bennett, 75016 France" required>';
 
                 echo '<label for="genre">Genre</label>';
                 echo '<div id="genre">';
