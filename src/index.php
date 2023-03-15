@@ -62,7 +62,7 @@
                     }
                 ?>
 
-<div id="recherche">
+                <div id = "recherche">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input id="searchbar" onkeyup="search_ticket()" type="text"
                     name="search" placeholder="Rechercher">
