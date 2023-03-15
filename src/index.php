@@ -101,7 +101,7 @@
                         echo '<a href="#">';
                         echo '<i class="fa-solid fa-user"></i>';
                         echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
-                        echo '<button><a href="panier.php?id=' . $id . '">panier</a></button>';
+                        echo '<a href="panier.php?id=' . $id . '"><button id="buttonPanier">panier</button></a>';
                         echo '</a>';
                     }
                     ?>
