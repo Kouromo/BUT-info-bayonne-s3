@@ -17,7 +17,7 @@ $conn = ConnBD();
     // Récupération des billets correspondants à la date entrée
     /*$query = "SELECT * FROM Billet WHERE dateExp > '" . $date . "'";
     $result = mysqli_query($conn, $query);*/
-    $stmt = $conn->prepare("SELECT * FROM Billet WHERE dateExp > :date");
+    $stmt = $conn->prepare("SELECT * FROM Billet WHERE dateExp > :date AND quantite >0");
 
     $stmt->execute(array(':date' => $date)); // $billets = array();
 
