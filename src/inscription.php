@@ -99,19 +99,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
   <header>
-    <section id="headGauche">
-      <button>Vendre ses billets</button>
-      <div>
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="searchbar" onkeyup="search_ticket()" type="text" name="search" placeholder="Rechercher">
-
-      </div>
-    </section>
-    <section id="headDroite">
-      <div>
-        <i class="fa-solid fa-user"></i>
-      </div>
-    </section>
+    <section id="headCentre">
+        <!--Logo qui redirige vers l'index-->
+        <a href="index.php">
+          <img id="logo" src="images/logo1.png" alt="Logo de Ticket'sPress">
+        </a>
+      </section>
+      <section id="headDroite">
+        <div>
+          <i class="fa-solid fa-user"></i>
+        </div>
+      </section>
   </header>
   <main>
     <!-- Formulaire d'inscription -->

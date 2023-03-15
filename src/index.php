@@ -141,7 +141,7 @@
             ?>
 
             <form>
-                <label for="date">billet disponible à partir du : </label>
+                <label for="date">Billet disponible à partir du : </label>
                 <!-- Champ pour sélectionner la date -->
                 <div>
                     <input type="date" id="dateInput" name="date" value="<?php echo date('Y-m-d'); ?>"

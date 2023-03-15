@@ -50,16 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="https://kit.fontawesome.com/7c2235d2ba.js" crossorigin="anonymous"></script>
   <title>Page de connexion à Ticket'sPress</title>
 </head>
-
 <body>
   <header>
-    <section id="headGauche">
-      <button>Vendre ses billets</button>
-      <div>
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="searchbar" onkeyup="search_ticket()" type="text" name="search" placeholder="Rechercher">
-
-      </div>
+    <section id="headCentre">
+      <!--Logo qui redirige vers l'index-->
+      <a href="index.php">
+        <img id="logo" src="images/logo1.png" alt="Logo de Ticket'sPress">
+      </a>
     </section>
     <section id="headDroite">
       <div>
@@ -96,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <input type="password" name="password" placeholder="Mot de passe" requiered>
       <section id="VerifCaptcha">
         <label for="codeCaptcha">Vérification :</label>
-        <img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img>
+        <img id="imgCaptcha" src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img>
         <input id="refresh" type="button" value="Refresh Captcha" onClick="location.href=location.href">
         <input type="txt" name="codeCaptcha" placeholder="Code du Captcha" requiered>
       </section>

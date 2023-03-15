@@ -61,10 +61,10 @@ if (isset($_POST['codeCaptcha']) && $_POST['codeCaptcha'] == $_SESSION['captcha'
 
     } else {
         // Si la date d'expiration est inférieure à la date actuelle, on redirige vers la page de connexion
-        header('Location: panier.php');
+        header('Location: panier.php?error=date');
     }
 } else {
     // Si le code captcha est mauvais, on redirige vers la page de connexion
-    header('Location: panier.php');
+    header('Location: panier.php?error=captcha');
 }
 ?>
