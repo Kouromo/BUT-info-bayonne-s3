@@ -63,11 +63,14 @@ include('ConnBD.php');
                 $stmt->closeCursor();
 
                 // envoie des mails de confirmation de l'achat et de la vente
-                $stmt = $conn->prepare("SELECT idUti FROM Billet WHERE id = :id");
+                $stmt = $conn->prepare("SELECT idUti, libelle FROM Billet WHERE id = :id");
                 $stmt->bindParam(':id', $id);
                 $stmt->execute();
-                $idUti = $stmt->fetchColumn();
+                $result = $stmt->fetch(); // Récupère la première ligne de résultat sous forme de tableau associatif
+                $idUti = $result['idUti'];
+                $libelle = $result['libelle'];
                 $stmt->closeCursor();
+
 
                 $stmt = $conn->prepare("SELECT mail FROM Utilisateur WHERE idUti = :id");
                 $stmt->bindParam(':id', $idUti);
@@ -98,7 +101,7 @@ L'équipe Tickets'Press";
                 $subjectV = "Vente de votre billet !";
                 $messageV = "Bonjour,
 
-J'ai le plaisir de vous annoncer que votre billet a été acheté par l'utilisateur $emailAcheteur !
+J'ai le plaisir de vous annoncer que votre billet pour $libelle a été acheté par l'utilisateur $emailAcheteur !
 Vous pouvez le contacter dès à présent pour lui donner les informations du billet.
 
 Cordialement,
