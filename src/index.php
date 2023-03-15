@@ -56,9 +56,9 @@
                 <?php
                     // si je suis pas connecté, renvoie à la page connexion.php, sinon renvoie à la page de vente
                     if (!isset($id)) {
-                        echo '<button><a href="connexion.php">Vendre ses billets</a></button>';
+                        echo '<a href="connexion.php"><button>Vendre ses billets</button></a>';
                     } else {
-                        echo '<button><a href="vente.php?id=' . $id . '">Vendre ses billets</a></button>';
+                        echo '<a href="vente.php?id=' . $id . '"><button>Vendre ses billets</button></a>';
                     }
                 ?>
 
@@ -92,7 +92,7 @@
                         echo '<a href="#">';
                         echo '<i class="fa-solid fa-user"></i>';
                         echo '<label for="user">' . $pseudoUser['pseudo'] . '</label>';
-                        echo '<button><a href="panier.php?id=' . $id . '">panier</a></button>';
+                        echo '<a href="panier.php?id=' . $id . '"><button id="buttonPanier">panier</button></a>';
                         echo '</a>';
                     }
                     ?>

@@ -37,7 +37,7 @@
     <header>
             <section id = "headGauche">
                 <?php
-                    echo '<button><a href="vente.php?id=' . $idUtilisateur . '">Vendre ses billets</a></button>';
+                    echo '<a href="vente.php?id=' . $idUtilisateur . '"><button>Vendre ses billets</button></a>';
                 ?>
             </section>
             <section id="headDroite">
@@ -62,49 +62,49 @@
             </section>
         </header>
         <?php
-function breadcrumbs($homes = 'Home')
-{
-    global $page_title;
-    $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
+            function breadcrumbs($homes = 'Home')
+            {
+                global $page_title;
+                $breadcrumb = '<div class="breadcrumb-container"><div class="container"><div class="breadcrumb">';
 
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-        // Le site est accessible via HTTPS
-        $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
-    } else {
-        // Le site est accessible via HTTP ou en local
-        $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
-    }
+                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+                    // Le site est accessible via HTTPS
+                    $root_domain = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+                } else {
+                    // Le site est accessible via HTTP ou en local
+                    $root_domain = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+                }
 
-    $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-    $current_path = '';
+                $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+                $current_path = '';
 
-    $num_breadcrumbs = count($breadcrumbs);
-    $i = 1;
-    foreach ($breadcrumbs as $crumb) {
-        $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
-        $linkPrecedent = "Accueil";
-        $current_path .= $crumb . '/';
-        if ($i == $num_breadcrumbs) {
-        
-            $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
-            
-        } else {
+                $num_breadcrumbs = count($breadcrumbs);
+                $i = 1;
+                foreach ($breadcrumbs as $crumb) {
+                    $link = ucwords(str_replace(array(".php", "-", "_"), array("", " ", " "), $crumb));
+                    $linkPrecedent = "Accueil";
+                    $current_path .= $crumb . '/';
+                    if ($i == $num_breadcrumbs) {
+                    
+                        $breadcrumb .= '<a class="breadcrumb-item">' .$link. '</a>';
+                        
+                    } else {
 
-            if ($i == $num_breadcrumbs-1) {
-                $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                        if ($i == $num_breadcrumbs-1) {
+                            $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' .$linkPrecedent. '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                        }
+                        else{
+                        $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
+                        }
+                    }
+                    $i++;
+                }
+
+                $breadcrumb .= '</div></div></div>';
+                return $breadcrumb;
             }
-            else{
-            $breadcrumb .= '<a href="' . $root_domain . $current_path . '" title="' . $page_title . '" class="breadcrumb-item">' . $link . '</a> <a class="breadcrumb-separator">&lt;</a> ';
-            }
-        }
-        $i++;
-    }
-
-    $breadcrumb .= '</div></div></div>';
-    return $breadcrumb;
-}
-echo breadcrumbs(); 
-?>
+            echo breadcrumbs(); 
+        ?>
         <?php
             if (empty($_SESSION['panier'])) {
                 echo "<p>Le panier est vide. Pour ajouter du contenu au panier, cliquez sur un BILLET et sélectionnez \"Ajouter au panier\".</p>";
@@ -162,9 +162,9 @@ echo breadcrumbs();
                 echo '<input type="date" name="dateExpiration" id="dateExpiration"><br><br>';
                 echo '</section>';
                 echo '<div class="verifCaptcha">';
-                echo '<label for="codeCaptcha">Vérification * :</label><br>';
+                echo '<label for="codeCaptcha">Vérification :</label><br>';
                 echo '<img src="generationCaptchaUAttempt.php" alt="CodeDuCaptcha"></img><br>';
-                echo '<input type="button" value="Refresh Captcha" onClick="location.href=location.href"><br>';
+                echo '<input id="refresh" type="button" value="Refresh Captcha" onClick="location.href=location.href"><br>';
                 echo '<input type="txt" name="codeCaptcha" placeholder="Code du Captcha" maxlength="10" required>';
                 echo '</div>';
                 echo '<input type="submit" value="Envoyer">';
