@@ -76,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           // On exécute la requête
           $stmt->execute();
           $conn = null;
-          $_SESSION['user_id'] = $user['idUti'];
+
+          $_SESSION['user_id'] = $idUti;
 
           header('Location: index.php?success=inscription'); // Inscription réussie
         } else {
